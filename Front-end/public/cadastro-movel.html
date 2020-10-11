@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Cadastro - móveis</title>
+
+	<link rel="shortcut icon" href="/images/TM_Logo.png" type="image/png">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="/styles/main.css">
+	<link rel="stylesheet" href="/styles/partials/header.css">
+	<link rel="stylesheet" href="/styles/partials/forms.css">
+	<link rel="stylesheet" href="/styles/partials/customer-registration.css">
+
+	<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+	
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+
+<body id="page-customer-registration">
+	
+	<div id="container">	
+	<header class="page-header">
+            <div class="top-bar-container">
+                <a href="/">
+                    <img src="/assets/back.svg" alt="Voltar">
+                </a>
+                <img src="/assets/logo.png" alt="Teixeira Móveis">
+            </div>
+
+            <div class="header-content">
+                <strong>Vamos inserir novos móveis</strong>
+                <p>O primeiro passo, é preencher esse formulário de inscrição</p>
+            </div>
+    </header>
+
+	 <main>
+            <form action="" id="create-registration" onsubmit= "return validaCadastro()">
+            <fieldset>
+                <legend>Insira os dados do produto</legend>
+                    <div class="input-block">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" required="required">
+                        <span class='msg-erro msg-nome'></span>
+                    </div>
+                    <div class="input-block">
+                        <label for="numero">Número de série</label>
+                        <input type="text" id="numero" required="required">
+                    </div>
+                    <div class="input-block">
+                        <label for="cpf">Descrição</label>
+                        <input id="cpf" type="number"required="required">
+                    </div>
+                    <div class="input-block">
+                        <label for="telefone">Quantidade </label>
+                        <input name="telefone" id="telefone"type="number" required="required">
+                    </div>
+					<div class="input-block">
+                        <label for="codigo">Código </label>
+                        <input name="codigo" id="codigo"type="number" required="required">
+                    </div>
+					<div class="input-block">
+                        <label for="imagem">Imagem <small>(url)</small></label>
+                        <input name="imagem" id="imagem" placeholder="https://exemplo.com.br" type="url" required="required">
+                    </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Informe o tipo de produto</legend>
+                <div class="select-block">
+                    <label for="subject">Tipo</label>
+                    <select name="tipo" id="subject" required="required">
+                        <option value="">Selecione o tipo</option>
+						<option value="Quarto">Cozinha</option>
+						<option value="Sala">Sala</option>
+						<option value="Cozinha">Quarto</option>
+						<option value="Banheiro">Banheiro</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Estamos quase lá</legend>
+                    <div class="input-block" id="input-block3" >
+                        <label for="valor">Digite o preço <small>(R$)</small></label>
+                        <input name="valor" id="valor" type="number" required="required">
+                    </div>
+            </fieldset>
+            </form>
+            <footer>
+                <p>
+                    <img src="assets/warning.svg" alt="Aviso importante">
+                    Importante!
+                    <br>
+                    Preencha todos os dados
+                </p>
+                <button type="submit" form="create-registration">Inserir</button>
+            </footer>
+        </main>
+
+</div>
+	
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+				title: "Inscreva-se",
+                array: [],
+                valor: "",
+				senha: "",
+				title1: "Logue-se",
+                array: [],
+                valor: "",
+				senha: "",
+            },
+            methods: {
+                addValor(str) {
+                    if (str != "") {
+                        this.array.push(str);
+                    } else {
+                        alert("Insira um valor !!");
+                    }
+                },
+				 addSenha(str) {
+                    if (str != "") {
+                        this.array.push(str);
+                    } else {
+                        alert("Insira um valor !!");
+                    }
+                },
+                removeValor(str) {
+                    if (str != "") {
+                        var index = this.array.indexOf(str);
+
+                        if (index != -1) {
+                            this.array.splice(index, 1);
+                        } else {
+                            alert("Item não existe !!");
+                        }
+                    } else {
+                        alert("Insira um valor !!");
+                    }
+
+                }
+            }
+        });
+    </script>
+	
+	<script>
+		function enviarDados(){
+			var nome = document.getElementById("nome").value;
+			var cpf = document.getElementById("cpf").value;
+			var matricula = document.getElementById("matricula").value;
+			var email = document.getElementById("email").value;
+			var senha = document.getElementById("senha").value;
+			var curso = document.getElementById("curso").value;
+			
+			if(nome.length < 6 || nome.length > 50)
+				alert('tamanho do nome invalido');
+			else{
+				if(cpf.length < 6)
+					alert('Número de série inválido');
+				else{
+					if(matricula.length <= 10)
+						alert('descrição invalida');
+					else{
+						if(email.length < 1)
+							alert('Quantidade invalida');
+						else{
+							if(senha <= 3)
+								alert('O código deve ter pelo menos 3 caracteres');
+							else{
+								alert('Cadastro realizado com sucesso!');
+							
+					}
+				}
+			}
+		}}}
+	</script>
+	
+	
+</body>
+
+</html>
