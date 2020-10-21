@@ -3,7 +3,7 @@
  <div id="container">
         <header class="page-header">
             <div class="top-bar-container">
-                <a href="/">
+                <a href="login-funcionario.html">
                     <img src="/../assets/back.svg" alt="Voltar">
                 </a>
                 <img src="/../assets/logo.png" alt="Teixeira Móveis">

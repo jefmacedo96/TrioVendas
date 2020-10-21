@@ -22,7 +22,7 @@
    <div id="container">
      <header class="page-header">
          <div class="top-bar-container">
-             <a href="login-funcionario.html">
+             <a href="login.html">
              <img src="assets/back.svg" alt="Voltar">
              </a>
              <img src="assets/logo.png" alt="Teixeira Móveis">
@@ -79,16 +79,22 @@
                 <p>Preço do produto:<strong>R$ 816,81 à vista</strong>
                 </p>
                 
-                <button type="button">
+                <button @click="adicionarCarrinho" type="button">
                     <a href="login.html">
                      <img src="https://image.flaticon.com/icons/png/512/23/23258.png" alt="carrinho de compras">Adicionar ao carrinho
-                    </a> 
-                    
+                    </a>
                 </button>
             </footer>
         </article>
     </main>
    </div>
+
+   <script>
+		function adicionarCarrinho(){
+			alert("Item adicionado ao carrinho!");			
+			}
+		
+	</script>
 </body>
 </div>
 </html>

@@ -10,7 +10,6 @@
         <div class="buttons-container">
           <button class="login">
               <a href="login.html">Fazer Login</a>
-            <!--<router-link to="/login">Fazer Login</router-link>-->
           </button>
           <button class="registration" @click="clique">
            <router-link to="/users">Cadastre-se</router-link>
