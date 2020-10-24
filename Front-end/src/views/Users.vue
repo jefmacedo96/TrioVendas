@@ -21,7 +21,7 @@
                 <legend>Insira seus dados</legend>
                     <div class="input-block">
                         <label for="name">Nome completo</label>
-                        <input type="text" name="" id="name" v-model="name" required="required" />
+                        <input type="text" nome="" id="nome" v-model="nome" required="required" />
                         <span class='msg-erro msg-nome'></span>
                     </div>
                     <div class="input-block">
@@ -112,7 +112,7 @@ export default {
       id: 0,
       login: "",
       senha: "",
-      name: "",
+      nome: "",
       cpf: "",
       email: "",
       telefone: "",
@@ -122,7 +122,7 @@ export default {
       confirmeSenha: "",
       user: {},
       users: [],
-      baseURI: "http://localhost:8080/projeto1/api/users",
+      baseURI: "http://localhost:8080/api/users",
     };
   },
   methods: {
@@ -145,7 +145,7 @@ export default {
     postUser: function() {
       this.$http
         .post(this.baseURI, {
-          name: this.name,
+          nome: this.nome,
           email: this.email,
           cpf: this.cpf,
           telefone: this.telefone,
@@ -202,7 +202,7 @@ export default {
 
     var formulario = document.forms["create-registration"];
 
-    var name = formulario.name.value;
+    var nome = formulario.nome.value;
     var email = formulario.email.value;
     var cpf = formulario.cpf.value;
     var telefone = formulario.telefone.value;
@@ -214,7 +214,7 @@ export default {
 
     
     var erro = false //Não tem erro
-    if(name.indexOf(" ") == -1) {
+    if(nome.indexOf(" ") == -1) {
         alert("Prencha o nome completo")
         erro = true //Quando identificar um erro
     }
@@ -247,7 +247,7 @@ export default {
     if(erro==false){
         this.$http
         .post(this.baseURI, {
-          name: this.name,
+          nome: this.nome,
           email: this.email,
           cpf: this.cpf,
           telefone: this.telefone,

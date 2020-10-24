@@ -22,27 +22,24 @@
                 <div id="alinhamento">
 
                     <button @click="fetchUsers"><h3>Ver cadastros</h3></button>
-                <div class="input-block">
-                    <input type="text" name="" id="name" v-model="name" required="required" placeholder="Digite o Id do cliente"/>
-                </div>
-                    <button class="pesquisa" ><img src="/../assets/lupa.png" alt="lupa"><h3>Buscar</h3></button>
-                </div>
 
+                <div class="input-block1">
+                    <input type="text" cpf="" id="cpf" v-model="cpf" required="required" placeholder="Digite o CPF"/>
+                </div>
+                    <button @click="fetchUserByCpf" class="pesquisa" ><img src="/../assets/lupa.png" alt="lupa"><h3>Buscar</h3></button>
+                </div> 
+                <br>
+                <br>
                 
-
-                <br /><br />
-                <p>{{ user }}</p><br /><br />
-                
-                <ul>
                 <li v-for="user in users" :key="user.id">
-                  <p>Nome: {{ user.name }}</p>
+                  <br>
+                  <p>Nome: {{ user.nome }}</p>
                   <p>Email: {{ user.email }}</p>
                   <p>CPF: {{ user.cpf }}</p>
                   <p>Telefone: {{ user.telefone }}</p>
                   <p>Senha: {{ user.senha }}</p>
-                  <p>Endereço: {{ user.estado }}, {{ user.cidade }}, {{ user.complemento }}</p><br><br>
+                  <p>Endereço: {{ user.estado }}, {{ user.cidade }}, {{ user.complemento }}.</p><br><br>
                 </li>
-              </ul>
 
             </fieldset>
         </main>
@@ -59,8 +56,9 @@ export default {
     return {
       id: 0,
       login: "",
+      cpf: "",
       senha: "",
-      name: "",
+      nome: "",
       email: "",
       telefone: "",
       estado: "",
@@ -69,7 +67,7 @@ export default {
       confirmeSenha: "",
       user: {},
       users: [],
-      baseURI: "http://localhost:8080/projeto1/api/users",
+      baseURI: "http://localhost:8080/api/users",
     };
   },
 
@@ -79,7 +77,19 @@ methods: {
         this.users = result.data;
       });
     },
+     fetchUserByCpf: function() {
+      this.$http
+        .get(this.baseURI + "/search?cpf=" + this.cpf)
+        .then((result) => {
+          this.users = result.data;
+          console.log(result.data)
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
 }
+
 }
 </script>
 
@@ -117,24 +127,19 @@ h3{
   color:white
 }
 
-.input-block input{
+.input-block1 input{
+    height: 5.6rem;
+    border-radius: 0.8rem;
+    background: var(--color-input-background);
+    border: 1px solid var(--color-line-in-write);
+    outline: 0;
+    padding: 0 1.6rem;
+    font: 1.6rem Archivo;
+
+
     width: 180px;
     margin: 3.2rem 20px 0px 100px ;
     margin-left: 100px ;
-}
-
-.input-block:focus-within::after{
-    content: "";
-
-    width: 170px;
-    height: 2px;
-    margin: 3.2rem 20px 0px 90px ;
-    background: var(--color-primary-light);
-
-    position: absolute;
-    
-    right: 1.6rem;
-    bottom: 0px;
 }
 
 #alinhamento{
@@ -154,7 +159,24 @@ button img{
 .pesquisa{
  background: #787680cb; 
 }
+
 .pesquisa:hover{
   background: var(--color-text-base);
+}
+
+.page-header .header-content p {
+    font-size: 1.9rem;
+}
+
+li{
+  background:#f0f0f0e5;
+  border-radius: 8px;
+  margin: 10px 0px 0 0px;
+  list-style-type: none;
+}
+li p{
+   margin: 0px 100px 0 100px;
+   color: var(--color-text-complement);
+   font: 70 1.7rem Archivo;
 }
 </style>
