@@ -19,8 +19,18 @@
             
             <fieldset>
                 <legend>Clientes cadastrados</legend>
-              
-                <button @click="fetchUsers"><h3>Listar todos os clientes cadastrados</h3></button><br /><br />
+                <div id="alinhamento">
+
+                    <button @click="fetchUsers"><h3>Ver cadastros</h3></button>
+                <div class="input-block">
+                    <input type="text" name="" id="name" v-model="name" required="required" placeholder="Digite o Id do cliente"/>
+                </div>
+                    <button class="pesquisa" ><img src="/../assets/lupa.png" alt="lupa"><h3>Buscar</h3></button>
+                </div>
+
+                
+
+                <br /><br />
                 <p>{{ user }}</p><br /><br />
                 
                 <ul>
@@ -74,13 +84,13 @@ methods: {
 </script>
 
 <style>
-p{
+ p{
     font-size: 1.9rem;
     color: var(--color-text-complement);
     }
 
  button {
-    width: 100%;
+    width: 30%;
     height: 5.6rem;
     background: var(--color-secondary);
     color: white;
@@ -98,11 +108,53 @@ p{
     margin-top: 3.2rem;  
 }
 
+ 
 button:hover {
     background: var(--color-secondary-dark);
 }
 
 h3{
   color:white
+}
+
+.input-block input{
+    width: 180px;
+    margin: 3.2rem 20px 0px 100px ;
+    margin-left: 100px ;
+}
+
+.input-block:focus-within::after{
+    content: "";
+
+    width: 170px;
+    height: 2px;
+    margin: 3.2rem 20px 0px 90px ;
+    background: var(--color-primary-light);
+
+    position: absolute;
+    
+    right: 1.6rem;
+    bottom: 0px;
+}
+
+#alinhamento{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button img{
+    position: absolute;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin-left: -55px;
+    
+}
+.pesquisa{
+ background: #787680cb; 
+}
+.pesquisa:hover{
+  background: var(--color-text-base);
 }
 </style>

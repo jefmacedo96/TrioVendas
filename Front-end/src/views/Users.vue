@@ -113,6 +113,7 @@ export default {
       login: "",
       senha: "",
       name: "",
+      cpf: "",
       email: "",
       telefone: "",
       estado: "",
