@@ -1,36 +1,50 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-
+import Principal from '../views/Principal.vue'
+import Produtos from '../views/Produtos.vue'
+import CadUser from '../components/CadUser.vue'
+import Clientes from '../components/Clientes.vue'
+import Login from '../components/Login.vue'
+import LoginFunc from '../components/LoginFunc.vue'
+import AddCarrinho from '../components/AddCarrinho.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Principal',
+    component: Principal
   },
   {
-    path: '/users/:name/post/:email/',
-    name: 'Users',
-    props: true,
-    
-    component: () => import( '../views/Users.vue')
+    path: '/produtos',
+    name: 'Produtos',
+    component: Produtos
+  },
+  {
+    path: '/carrinho',
+    name: 'AddCarrinho',
+    component: AddCarrinho
   },
   {
     path: '/login',
     name: 'Login',
-    props: true,
-    
-    component: () => import( '../views/Clientes.vue')
+    component: Login
   },
   {
-    path: '/furnitures',
-    name: 'Furnitures',
-    props: true,
-    
-    component: () => import( '../views/Furnitures.vue')
+    path: '/loginFunc',
+    name: 'LoginFunc',
+    component: LoginFunc
+  },
+  {
+    path: '/cadastrarUsuario/:name/post/:email/',
+    name: 'CadUser',
+    component: CadUser
+  },
+  {
+    path: '/clientes',
+    name: 'Clientes',
+    component: Clientes
   },
   {
     path: '*', redirect: '/' }

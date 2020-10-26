@@ -4,9 +4,9 @@
     <div id="container">
         <header class="page-header">
             <div class="top-bar-container">
-                <a href="/">
+                <router-link to="/">
                     <img src="/../assets/back.svg" alt="Voltar">
-                </a>
+                </router-link>
                 <img src="/../assets/logo.png" alt="Teixeira Móveis">
             </div>
 
@@ -16,7 +16,7 @@
             </div>
         </header>
         <main>
-          <form action="" id="create-registration" onsubmit= "return validaCadastro()">
+          <form id="create-registration" onsubmit= "return validaCadastro()">
             <fieldset>
                 <legend>Insira seus dados</legend>
                     <div class="input-block">
@@ -106,7 +106,7 @@
 
 <script>
 export default {
-  name: "Users",
+  name: "CadUser",
   data() {
     return {
       id: 0,
