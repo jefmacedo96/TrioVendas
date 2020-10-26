@@ -1,4 +1,4 @@
-package br.ufc.web.aula17.model;
+package br.ufc.web.triovendas.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

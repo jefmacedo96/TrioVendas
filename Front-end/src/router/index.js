@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -23,6 +24,13 @@ const routes = [
     props: true,
     
     component: () => import( '../views/Clientes.vue')
+  },
+  {
+    path: '/furnitures',
+    name: 'Furnitures',
+    props: true,
+    
+    component: () => import( '../views/Furnitures.vue')
   },
   {
     path: '*', redirect: '/' }

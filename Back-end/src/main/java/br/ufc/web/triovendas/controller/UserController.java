@@ -1,4 +1,4 @@
-package br.ufc.web.aula17.controller;
+package br.ufc.web.triovendas.controller;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufc.web.aula17.model.User;
-import br.ufc.web.aula17.service.UserService;
+import br.ufc.web.triovendas.model.User;
+import br.ufc.web.triovendas.service.UserService;
 
 @RestController
 @CrossOrigin

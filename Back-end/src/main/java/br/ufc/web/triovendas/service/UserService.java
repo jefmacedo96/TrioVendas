@@ -1,4 +1,4 @@
-package br.ufc.web.aula17.service;
+package br.ufc.web.triovendas.service;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufc.web.aula17.model.User;
-import br.ufc.web.aula17.repository.UserRepository;
+import br.ufc.web.triovendas.model.User;
+import br.ufc.web.triovendas.repository.UserRepository;
 
 @Service
 public class UserService {
