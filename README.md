@@ -1,6 +1,6 @@
 # TrioVendasProjetoIntegradoI
 
-Equipe: Antonio Jefferson Ferreira de Macedo, Claudia Sousa Barbosa, Maria Jegirlana dos Santos Silva 
+Equipe: Antonio Jefferson Ferreira de Macedo, Gabriela Alves de Oliveira, Maria Jegirlana dos Santos Silva 
 
 Nome da equipe: TrioVendas (Mudança de nome, pois o antigo nome era MakeTeen) 
 
