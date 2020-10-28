@@ -4,7 +4,7 @@
     <div id="container">
         <header class="page-header">
             <div class="top-bar-container">
-                <router-link to="/login">
+                <router-link to="/clientes">
                     <img src="/../assets/back.svg" alt="Voltar">
                 </router-link>
                 <img src="/../assets/logo.png" alt="Teixeira Móveis">
@@ -18,7 +18,11 @@
         <main>
           <form id="create-registration" onsubmit= "return validaCadastro()">
             <fieldset>
-                <legend>Insira seus dados</legend>
+                <legend>Insira os dados do cliente</legend>
+                    <div class="input-block">
+                        <label for="name">Id</label>
+                        <input type="text" v-model="id" required="required" />
+                    </div>
                     <div class="input-block">
                         <label for="name">Nome completo</label>
                         <input type="text" nome="" id="nome" v-model="nome" required="required" />
@@ -127,9 +131,8 @@ export default {
   },
   methods: {
     putUser: function() {
-      this.$http
-        .put(this.baseURI + "/" + this.id, {
-          nome: this.nome,
+      let obj = {
+         nome: this.nome,
           email: this.email,
           cpf: this.cpf,
           telefone: this.telefone,
@@ -137,12 +140,13 @@ export default {
           estado: this.estado,
           cidade: this.cidade,
           complemento: this.complemento,
-        })
-        .then((result) => {
-          console.log(result);
-          this.user = result.data;
-        });
+      };
+      this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
+        console.log(result);
+        this.user = result.data;
+      });
     },
+
     mostrarSenha: function() {
       let btn = document.querySelector('.eye2');
       btn.addEventListener('click', function() {
@@ -213,9 +217,8 @@ export default {
         return false
     }
     if(erro==false){
-        this.$http
-        .putUser(this.baseURI, {
-          nome: this.nome,
+        let obj = {
+         nome: this.nome,
           email: this.email,
           cpf: this.cpf,
           telefone: this.telefone,
@@ -223,11 +226,16 @@ export default {
           estado: this.estado,
           cidade: this.cidade,
           complemento: this.complemento,
-        })
-        .then((result) => {
-          console.log(result);
-          this.user = result.data;
-        });
+      };
+      this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
+        console.log(result);
+        this.user = result.data;
+
+         modal.classList.remove("hide")
+            setTimeout(()=> {
+                window.location = '/'
+            }, 3000)
+      });
     }
     else{
         return true   

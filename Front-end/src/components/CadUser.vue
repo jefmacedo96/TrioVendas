@@ -259,6 +259,11 @@ export default {
         .then((result) => {
           console.log(result);
           this.user = result.data;
+
+          modal.classList.remove("hide")
+            setTimeout(()=> {
+                window.location = '/'
+            }, 3000)
         });
     }
     else{

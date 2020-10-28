@@ -28,8 +28,10 @@
           <button @click="fetchUserByCpf" class="pesquisa" ><img src="/../assets/lupa.png" alt="lupa"><h3>Buscar</h3></button>
         </div> 
 
-        <div id="alinhamento2">
-          <div class="input-block2">
+        <div id="alinhamento">
+          <button><router-link to="/updateCliente"><h3>Atualizar cadastros</h3></router-link></button>
+
+          <div class="input-block1">
             <input type="number" quantidade="" id="quantidade" v-model="quantidade" required="required" placeholder="Digite a quantidade"/>
           </div>
 

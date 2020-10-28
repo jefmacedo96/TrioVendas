@@ -23,7 +23,6 @@
         <li><router-link to="/" class="voltar">Fechar</router-link></li>
         <li><router-link to="/">Tela Inicial</router-link></li>
         <li><router-link to="/produtos">Catálogo</router-link></li>
-        <li><a href="/updateCliente">Atualizar cadastro</a></li>
         <li><router-link to="/carrinho">Ver carrinho</router-link></li>
       </ul>
     </nav>
