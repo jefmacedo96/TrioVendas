@@ -7,6 +7,10 @@ import Clientes from '../components/Clientes.vue'
 import Login from '../components/Login.vue'
 import LoginFunc from '../components/LoginFunc.vue'
 import AddCarrinho from '../components/AddCarrinho.vue'
+import Furnitures from '../components/Furnitures.vue'
+import Stock from '../components/Stock.vue'
+import UpdateCliente from '../components/UpdateCliente.vue'
+
 
 Vue.use(VueRouter)
 
@@ -37,7 +41,7 @@ const routes = [
     component: LoginFunc
   },
   {
-    path: '/cadastrarUsuario/:name/post/:email/',
+    path: '/cadastrarUsuario',
     name: 'CadUser',
     component: CadUser
   },
@@ -45,6 +49,21 @@ const routes = [
     path: '/clientes',
     name: 'Clientes',
     component: Clientes
+  },
+  {
+    path: '/furnitures',
+    name: 'Furnitures',
+    component: Furnitures
+  },
+  {
+    path: '/stock',
+    name: 'Stock',
+    component: Stock
+  },
+  {
+    path: '/updateCliente',
+    name: 'UpdateCliente',
+    component: UpdateCliente
   },
   {
     path: '*', redirect: '/' }

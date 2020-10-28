@@ -68,7 +68,7 @@
 
               <button type="button">
                 <router-link to="/login">
-                  <img
+                  <img id="carrinho"
                     src="https://image.flaticon.com/icons/png/512/23/23258.png"
                     alt="carrinho de compras"
                   />Adicionar ao carrinho
@@ -90,7 +90,6 @@ export default {
 
 <style>
 :root {
-  /*variáveis*/
   --color-background: #f0f0f7;
   --color-primary-lighter: #4865e6;
   --color-primary-light: #3051e2;
@@ -110,8 +109,7 @@ export default {
   --color-box-base: #ffffff;
   --color-box-footer: #fafafc;
   --color-small-info: #c1bccc;
-  /*tamanho da fonte padrão: 16px - 100% - 1rem*/
-  font-size: 60%; /* controle das medidas rem */
+  font-size: 60%; 
 }
 
 * {
@@ -120,14 +118,11 @@ export default {
   box-sizing: border-box;
 }
 
-html,
 #app #page-landing {
   height: 100vh;
 }
 
 #app #page-landing,
-#reapp body,
-#stock,
 #furniture {
   background: var(--color-background);
   display: flex;
@@ -135,15 +130,12 @@ html,
   justify-content: center;
 }
 
-#app body,
-#reapp,
-#stock,
+
 #furniture,
 input,
 button,
 textarea,
 #page-customer-registration {
-  /* font: 500 1.6rem Poppins; */
   font-weight: 500;
   font-family: Poppins;
   font-size: 1.6rem;
@@ -157,7 +149,7 @@ textarea,
 
 @media (min-width: 700px) {
   :root {
-    font-size: 62.5%; /*Todo 1rem vai ser relativo a 10px*/
+    font-size: 62.5%; 
   }
 }
 
@@ -503,8 +495,8 @@ input-block label,
     justify-content: center;
   }
 
-  .stock-item footer button img {
-    margin-right: 16px;
+ #carrinho {
+  margin-left: -90px;
   }
 }
 </style>

@@ -23,8 +23,9 @@
         <li><router-link to="/" class="voltar">Fechar</router-link></li>
         <li><router-link to="/login">Tela Inicial</router-link></li>
         <li><router-link to="produtos">Catálogo</router-link></li>
-        <li><a href="lista-movel.html">Ver estoque</a></li>
-        <li><router-link to="/login">Clientes cadastrados</router-link></li>
+        <li><a href="/furnitures">Cadastrar móveis</a></li>
+        <li><a href="/stock">Ver estoque</a></li>
+        <li><router-link to="/clientes">Clientes cadastrados</router-link></li>
       </ul>
     </nav>
 
@@ -96,13 +97,6 @@ body {
 * {
   margin: 0;
   padding: 0;
-}
-
-header {
-  width: 100%;
-
-  left: 0;
-  background-color: #5b859a;
 }
 
 .menu-icon {

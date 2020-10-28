@@ -36,7 +36,7 @@
     <br />
 
     <div class="container" align="center">
-      <form action="/stock-listing.html" onsubmit="return enviarDados();">
+      <form action="/produtos" onsubmit="return enviarDados();">
         <table>
           <tr id="campo3">
             <td id="vazio"></td>

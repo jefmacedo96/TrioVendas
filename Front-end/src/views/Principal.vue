@@ -78,7 +78,6 @@ export default {
   box-sizing: border-box;
 }
 
-html,
 #container {
   height: 100vh;
 }
@@ -93,7 +92,7 @@ html,
 .hello #app,
 input,
 button,
-textarea {
+textare {
   font-weight: 500;
   font-family: Poppins;
   font-size: 1.6rem;
@@ -121,6 +120,7 @@ textarea {
 
 .logo-container img {
   height: 10rem;
+  margin-top: 8rem;
 }
 
 .logo-container {
@@ -132,7 +132,8 @@ textarea {
   font-weight: 500;
   font-size: 3.6rem;
   line-height: 4.6rem;
-  margin-top: 0.8rem;
+  margin-top: 4rem;
+  margin-left: -0.8rem;
 }
 
 .hero-image {
@@ -164,7 +165,10 @@ textarea {
 
   color: var(--color-button-text);
 }
-
+a{
+    color: var(--color-button-text);
+     text-decoration: none;
+}
 .buttons-container button img {
   width: 4rem;
   margin-right: 2.4rem;

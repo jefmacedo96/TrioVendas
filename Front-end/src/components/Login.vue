@@ -23,7 +23,7 @@
         <li><router-link to="/" class="voltar">Fechar</router-link></li>
         <li><router-link to="/">Tela Inicial</router-link></li>
         <li><router-link to="/produtos">Catálogo</router-link></li>
-        <li><a href="customer-registration.html">Cadastro</a></li>
+        <li><a href="/updateCliente">Atualizar cadastro</a></li>
         <li><router-link to="/carrinho">Ver carrinho</router-link></li>
       </ul>
     </nav>
@@ -85,18 +85,6 @@ export default {
 </script>
 
 <style>
-img {
-  max-width: 100%;
-}
-#topo {
-  width: 100%;
-  height: 26%;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-  border-bottom-color: #0a246a;
-  background-position: center center;
-  background-color: skyblue;
-}
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -144,14 +132,10 @@ body {
   left: -300px;
 }
 
-ul {
-  list-style: none;
-}
-
 ul li a {
   display: block;
   font: 1.6rem Archivo;
-  padding: 10px;
+  
   border-bottom: solid 1px #000;
   color: var(--color-text-title);
   text-decoration: none;
@@ -159,11 +143,10 @@ ul li a {
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-ul li span {
-  float: right;
-  padding-right: 10px;
+  margin-top: -10px;
+  height: 45px;
+  
 }
 
 ul li a:hover {

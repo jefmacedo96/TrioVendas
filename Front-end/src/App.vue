@@ -6,8 +6,7 @@
 </template>
 
 <script>
-//import Users from './views/Users.vue'
-//import About from './views/About.vue'
+
 import Principal from './views/Principal.vue';
 import Produtos from './views/Produtos.vue';
 
@@ -28,12 +27,6 @@ export default {
     Produtos,
     AddCarrinho
   },
-  /*methods: {
-    clique() {
-    this.$router.push({ name: "Users", params: { name: "Maria",id:"15" }
-    }).catch(()=>{});
-    },
- }*/
 }
 </script>
 
