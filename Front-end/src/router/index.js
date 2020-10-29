@@ -10,7 +10,9 @@ import AddCarrinho from '../components/AddCarrinho.vue'
 import Furnitures from '../components/Furnitures.vue'
 import Stock from '../components/Stock.vue'
 import UpdateCliente from '../components/UpdateCliente.vue'
-
+import CadFuncionario from '../components/CadFuncionario.vue'
+import Funcionarios from '../components/Funcionarios.vue'
+import UpdateFuncionario from '../components/UpdateFuncionario.vue'
 
 Vue.use(VueRouter)
 
@@ -46,9 +48,19 @@ const routes = [
     component: CadUser
   },
   {
+    path: '/cadastrarFuncionario',
+    name: 'CadFuncionario',
+    component: CadFuncionario
+  },
+  {
     path: '/clientes',
     name: 'Clientes',
     component: Clientes
+  },
+  {
+    path: '/funcionarios',
+    name: 'Funcionarios',
+    component: Funcionarios
   },
   {
     path: '/furnitures',
@@ -66,7 +78,13 @@ const routes = [
     component: UpdateCliente
   },
   {
-    path: '*', redirect: '/' }
+    path: '/updateFuncionario',
+    name: 'UpdateFuncionario',
+    component: UpdateFuncionario
+  },
+  {
+    path: '*', redirect: '/'
+  }
 ]
 
 const router = new VueRouter({

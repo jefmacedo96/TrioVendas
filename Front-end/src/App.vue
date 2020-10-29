@@ -15,6 +15,9 @@ import Clientes from '@/components/Clientes.vue';
 import Login from '@/components/Login.vue';
 import LoginFunc from '@/components/LoginFunc.vue'
 import AddCarrinho from '@/components/AddCarrinho.vue'
+import CadFuncionario from '@/components/CadFuncionario.vue'
+import Funcionarios from '@/components/Funcionarios.vue'
+import UpdateFuncionario from '@/components/UpdateFuncionario.vue'
 
 export default {
   name: "App",
@@ -25,7 +28,10 @@ export default {
     Login,
     LoginFunc,
     Produtos,
-    AddCarrinho
+    AddCarrinho,
+    CadFuncionario,
+    Funcionarios,
+    UpdateFuncionario
   },
 }
 </script>

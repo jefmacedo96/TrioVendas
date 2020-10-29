@@ -10,16 +10,16 @@
         </div>
 
         <div class="header-content">
-          <strong>Esses são os nossos clientes cadastrados</strong>
+          <strong>Esses são os nossos funcionários cadastrados</strong>
           <p>Somente funcionários tem acesso a essas informações</p>
         </div>
       </header>
 
       <main>
         <fieldset>
-          <legend>Clientes cadastrados</legend>
+          <legend>Funcionários cadastrados</legend>
           <div id="alinhamento">
-            <button @click="fetchUsers"><h3>Ver cadastros</h3></button>
+            <button @click="fetchEmployees"><h3>Ver cadastros</h3></button>
 
             <div class="input-block1">
               <input
@@ -32,7 +32,7 @@
               />
             </div>
 
-            <button @click="fetchUserByCpf" class="pesquisa">
+            <button @click="fetchEmployeeByCpf" class="pesquisa">
               <img src="/../assets/lupa.png" alt="lupa" />
               <h3>Buscar</h3>
             </button>
@@ -40,7 +40,7 @@
 
           <div id="alinhamento">
             <button>
-              <router-link to="/updateCliente"
+              <router-link to="/updateFuncionario"
                 ><h3>Atualizar cadastros</h3></router-link
               >
             </button>
@@ -56,7 +56,7 @@
               />
             </div>
 
-            <button @click="fetchUserByQuantidade" class="pesquisa">
+            <button @click="fetchEmployeeByQuantidade" class="pesquisa">
               <img src="/../assets/filtro.ico" alt="filtro" />
               <h3>Filtrar</h3>
             </button>
@@ -77,7 +77,7 @@
               />
             </div>
 
-            <button @click="deleteUserById" class="pesquisa1">
+            <button @click="deleteEmployeeById" class="pesquisa1">
               <img src="/../assets/lixeira.png" alt="remover" />
               <h3>Remover</h3>
             </button>
@@ -85,19 +85,14 @@
             <br />
             <br />
           </div>
-          <li v-for="user in users" :key="user.id">
+          <li v-for="employee in employees" :key="employee.id">
             <br />
-            <p>Id: {{ user.id }}</p>
-            <p>Nome: {{ user.nome }}</p>
-            <p>Email: {{ user.email }}</p>
-            <p>CPF: {{ user.cpf }}</p>
-            <p>Telefone: {{ user.telefone }}</p>
-            <p>Senha: {{ user.senha }}</p>
-            <p>
-              Endereço: {{ user.estado }}, {{ user.cidade }},
-              {{ user.complemento }}.
-            </p>
-
+            <p>Id: {{ employee.id }}</p>
+            <p>Nome: {{ employee.nome }}</p>
+            <p>Email: {{ employee.email }}</p>
+            <p>CPF: {{ employee.cpf }}</p>
+            <p>Cargo: {{ employee.cargo }}</p>
+            <p>Senha: {{ employee.senha }}</p>
             <br /><br />
           </li>
         </fieldset>
@@ -108,7 +103,7 @@
 
 <script>
 export default {
-  name: "Users",
+  name: "Funcionarios",
   data() {
     return {
       id: 0,
@@ -117,46 +112,43 @@ export default {
       senha: "",
       nome: "",
       email: "",
-      telefone: "",
-      estado: "",
-      cidade: "",
-      complemento: "",
+      cargo: "",
       confirmeSenha: "",
       quantidade: "",
-      user: {},
-      users: [],
-      baseURI: "http://localhost:8080/api/users",
+      employee: {},
+      employees: [],
+      baseURI: "http://localhost:8080/api/employees",
     };
   },
 
   methods: {
-    fetchUsers: function () {
+    fetchEmployees: function () {
       this.$http.get(this.baseURI).then((result) => {
-        this.users = result.data;
+        this.employees = result.data;
       });
     },
-    fetchUserByCpf: function () {
+    fetchEmployeeByCpf: function () {
       this.$http
         .get(this.baseURI + "/search?cpf=" + this.cpf)
         .then((result) => {
-          this.users = result.data;
+          this.employees = result.data;
           console.log(result.data);
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    fetchUserByQuantidade: function () {
+    fetchEmployeeByQuantidade: function () {
       this.$http
         .get(this.baseURI + "/page?quantidade=" + this.quantidade)
         .then((result) => {
-          this.users = result.data;
+          this.employees = result.data;
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    deleteUserById: function () {
+    deleteEmployeeById: function () {
       this.$http.delete(this.baseURI + "/" + this.id).then((result) => {
         console.log(result.status);
       });

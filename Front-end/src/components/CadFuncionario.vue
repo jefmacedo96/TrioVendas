@@ -10,14 +10,14 @@
         </div>
 
         <div class="header-content">
-          <strong>Seja bem vindo!<br />Vamos as compras</strong>
-          <p>O primeiro passo, é preencher esse formulário de inscrição</p>
+          <strong>Seja bem vindo!<br />Cresça conosco</strong>
+          <p>Preencha esse formulário de inscrição</p>
         </div>
       </header>
       <main>
         <form id="create-registration" onsubmit="return validaCadastro()">
           <fieldset>
-            <legend>Insira seus dados</legend>
+            <legend>Insira os Dados do Funcionário</legend>
             <div class="input-block">
               <label for="name">Nome completo</label>
               <input
@@ -49,57 +49,15 @@
               />
             </div>
             <div class="input-block">
-              <label for="telefone"
-                >Telefone <small>(somente números)</small></label
-              >
+              <label for="cargo">Cargo</label>
               <input
-                name="telefone"
-                id="telefone"
-                v-model="telefone"
-                placeholder="(DDD) xxxxx - xxxx"
-                type="number"
-                required="required"
-              />
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Nos informe seu endereço!</legend>
-            <div class="select-block">
-              <label for="estado">Estado</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="estado"
-                id="subject"
-                v-model="estado"
                 type="text"
+                nome=""
+                id="cargo"
+                v-model="cargo"
                 required="required"
               />
-            </div>
-            <div class="select-block">
-              <label for="cidade">Cidade</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="cidade"
-                id="subject"
-                v-model="cidade"
-                type="text"
-                required="required"
-              />
-            </div>
-
-            <div class="select-block">
-              <label for="complemento">Número/Complemento</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="complemento"
-                id="complemento"
-                v-model="complemento"
-                type="text"
-                required="required"
-              />
+              <span class="msg-erro msg-nome"></span>
             </div>
           </fieldset>
           <fieldset>
@@ -169,7 +127,7 @@
 
 <script>
 export default {
-  name: "CadUser",
+  name: "CadFuncionario",
   data() {
     return {
       id: 0,
@@ -178,51 +136,45 @@ export default {
       nome: "",
       cpf: "",
       email: "",
-      telefone: "",
-      estado: "",
-      cidade: "",
-      complemento: "",
+      cargo: "",
       confirmeSenha: "",
-      user: {},
-      users: [],
-      baseURI: "http://localhost:8080/api/users",
+      employees: {},
+      employees: [],
+      baseURI: "http://localhost:8080/api/employees",
     };
   },
   methods: {
-    fetchUsers: function () {
+    fetchEmployees: function () {
       this.$http.get(this.baseURI).then((result) => {
-        this.users = result.data;
+        this.employees = result.data;
       });
     },
 
-    fetchUserByLogin: function () {
+    fetchEmployeeByLogin: function () {
       this.$http
         .get(this.baseURI + "/" + "?login=" + this.login)
         .then((result) => {
-          this.user = result.data;
+          this.employee = result.data;
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    postUser: function () {
+    postEmployee: function () {
       this.$http
         .post(this.baseURI, {
           nome: this.nome,
           email: this.email,
           cpf: this.cpf,
-          telefone: this.telefone,
+          cargo: this.cargo,
           senha: this.senha,
-          estado: this.estado,
-          cidade: this.cidade,
-          complemento: this.complemento,
         })
         .then((result) => {
           console.log(result);
-          this.user = result.data;
+          this.employee = result.data;
         });
     },
-    putUser: function () {
+    putEmployee: function () {
       this.$http
         .put(this.baseURI + "/" + this.id, {
           login: this.login,
@@ -230,10 +182,10 @@ export default {
         })
         .then((result) => {
           console.log(result);
-          this.user = result.data;
+          this.employee = result.data;
         });
     },
-    deleteUserById: function () {
+    deleteEmployeeById: function () {
       this.$http.delete(this.baseURI + "/" + this.id).then((result) => {
         console.log(result.status);
       });
@@ -267,7 +219,7 @@ export default {
       var nome = formulario.nome.value;
       var email = formulario.email.value;
       var cpf = formulario.cpf.value;
-      var telefone = formulario.telefone.value;
+      var cargo = formulario.cargo.value;
       var senha = formulario.senha.value;
       var confirmeSenha = formulario.confirmeSenha.value;
 
@@ -285,9 +237,9 @@ export default {
         alert("CPF inválido! Preencha corretamente");
         erro = true;
       }
-      if (telefone.length != 12) {
-        alert("Telefone inválido! Preencha corretamente");
-        erro = true;
+      if (cargo.indexOf("")) {
+        alert("Prencha o cargo");
+        erro = true; //Quando identificar um erro
       }
       if (senha.length < 6) {
         alert("Senha inválida! Sua senha deve possuir no mínimo 6 caracteres");
@@ -313,15 +265,12 @@ export default {
             nome: this.nome,
             email: this.email,
             cpf: this.cpf,
-            telefone: this.telefone,
+            cargo: this.cargo,
             senha: this.senha,
-            estado: this.estado,
-            cidade: this.cidade,
-            complemento: this.complemento,
           })
           .then((result) => {
             console.log(result);
-            this.user = result.data;
+            this.employee = result.data;
 
             modal.classList.remove("hide");
             setTimeout(() => {

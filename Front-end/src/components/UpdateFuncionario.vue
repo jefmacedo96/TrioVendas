@@ -3,21 +3,25 @@
     <div id="container">
       <header class="page-header">
         <div class="top-bar-container">
-          <router-link to="/">
+          <router-link to="/clientes">
             <img src="/../assets/back.svg" alt="Voltar" />
           </router-link>
           <img src="/../assets/logo.png" alt="Teixeira Móveis" />
         </div>
 
         <div class="header-content">
-          <strong>Seja bem vindo!<br />Vamos as compras</strong>
-          <p>O primeiro passo, é preencher esse formulário de inscrição</p>
+          <strong>Seja bem vindo!<br />Vamos atualizar seu cadastro</strong>
+          <p>Atualize seus dados caso necessário</p>
         </div>
       </header>
       <main>
         <form id="create-registration" onsubmit="return validaCadastro()">
           <fieldset>
-            <legend>Insira seus dados</legend>
+            <legend>Insira os novos dados do Funcionário</legend>
+            <div class="input-block">
+              <label for="name">Id</label>
+              <input type="text" v-model="id" required="required" />
+            </div>
             <div class="input-block">
               <label for="name">Nome completo</label>
               <input
@@ -49,57 +53,15 @@
               />
             </div>
             <div class="input-block">
-              <label for="telefone"
-                >Telefone <small>(somente números)</small></label
-              >
+              <label for="name">Cargo</label>
               <input
-                name="telefone"
-                id="telefone"
-                v-model="telefone"
-                placeholder="(DDD) xxxxx - xxxx"
-                type="number"
-                required="required"
-              />
-            </div>
-          </fieldset>
-          <fieldset>
-            <legend>Nos informe seu endereço!</legend>
-            <div class="select-block">
-              <label for="estado">Estado</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="estado"
-                id="subject"
-                v-model="estado"
                 type="text"
+                nome=""
+                id="cargo"
+                v-model="cargo"
                 required="required"
               />
-            </div>
-            <div class="select-block">
-              <label for="cidade">Cidade</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="cidade"
-                id="subject"
-                v-model="cidade"
-                type="text"
-                required="required"
-              />
-            </div>
-
-            <div class="select-block">
-              <label for="complemento">Número/Complemento</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="complemento"
-                id="complemento"
-                v-model="complemento"
-                type="text"
-                required="required"
-              />
+              <span class="msg-erro msg-nome"></span>
             </div>
           </fieldset>
           <fieldset>
@@ -148,9 +110,9 @@
           <button
             type="button"
             form="create-registration"
-            @click="validaCadastro"
+            @click="putEmployee"
           >
-            Salvar cadastro
+            Atualizar cadastro
           </button>
         </footer>
       </main>
@@ -160,7 +122,7 @@
       <div class="content">
         <div class="header">
           <img src="/../assets/check.svg" alt="Cadastro concluído" />
-          <h1>Cadastro concluído</h1>
+          <h1>Cadastro atualizado</h1>
         </div>
       </div>
     </div>
@@ -169,7 +131,7 @@
 
 <script>
 export default {
-  name: "CadUser",
+  name: "UpdateFuncionario",
   data() {
     return {
       id: 0,
@@ -178,66 +140,28 @@ export default {
       nome: "",
       cpf: "",
       email: "",
-      telefone: "",
-      estado: "",
-      cidade: "",
-      complemento: "",
+      cargo: "",
       confirmeSenha: "",
-      user: {},
-      users: [],
-      baseURI: "http://localhost:8080/api/users",
+      employee: {},
+      employees: [],
+      baseURI: "http://localhost:8080/api/employees",
     };
   },
   methods: {
-    fetchUsers: function () {
-      this.$http.get(this.baseURI).then((result) => {
-        this.users = result.data;
+    putEmployee: function () {
+      let obj = {
+        nome: this.nome,
+        email: this.email,
+        cpf: this.cpf,
+        cargo: this.cargo,
+        senha: this.senha,
+      };
+      this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
+        console.log(result);
+        this.employee = result.data;
       });
     },
 
-    fetchUserByLogin: function () {
-      this.$http
-        .get(this.baseURI + "/" + "?login=" + this.login)
-        .then((result) => {
-          this.user = result.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    postUser: function () {
-      this.$http
-        .post(this.baseURI, {
-          nome: this.nome,
-          email: this.email,
-          cpf: this.cpf,
-          telefone: this.telefone,
-          senha: this.senha,
-          estado: this.estado,
-          cidade: this.cidade,
-          complemento: this.complemento,
-        })
-        .then((result) => {
-          console.log(result);
-          this.user = result.data;
-        });
-    },
-    putUser: function () {
-      this.$http
-        .put(this.baseURI + "/" + this.id, {
-          login: this.login,
-          password: this.password,
-        })
-        .then((result) => {
-          console.log(result);
-          this.user = result.data;
-        });
-    },
-    deleteUserById: function () {
-      this.$http.delete(this.baseURI + "/" + this.id).then((result) => {
-        console.log(result.status);
-      });
-    },
     mostrarSenha: function () {
       let btn = document.querySelector(".eye2");
       btn.addEventListener("click", function () {
@@ -267,7 +191,7 @@ export default {
       var nome = formulario.nome.value;
       var email = formulario.email.value;
       var cpf = formulario.cpf.value;
-      var telefone = formulario.telefone.value;
+      var cargo = formulario.cargo.value;
       var senha = formulario.senha.value;
       var confirmeSenha = formulario.confirmeSenha.value;
 
@@ -285,8 +209,8 @@ export default {
         alert("CPF inválido! Preencha corretamente");
         erro = true;
       }
-      if (telefone.length != 12) {
-        alert("Telefone inválido! Preencha corretamente");
+      if (cargo.indexOf("")) {
+        alert("Cargo inválido! Preencha corretamente");
         erro = true;
       }
       if (senha.length < 6) {
@@ -308,26 +232,22 @@ export default {
         return false;
       }
       if (erro == false) {
-        this.$http
-          .post(this.baseURI, {
-            nome: this.nome,
-            email: this.email,
-            cpf: this.cpf,
-            telefone: this.telefone,
-            senha: this.senha,
-            estado: this.estado,
-            cidade: this.cidade,
-            complemento: this.complemento,
-          })
-          .then((result) => {
-            console.log(result);
-            this.user = result.data;
+        let obj = {
+          nome: this.nome,
+          email: this.email,
+          cpf: this.cpf,
+          cargo: this.cargo,
+          senha: this.senha,
+        };
+        this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
+          console.log(result);
+          this.employee = result.data;
 
-            modal.classList.remove("hide");
-            setTimeout(() => {
-              window.location = "/";
-            }, 3000);
-          });
+          modal.classList.remove("hide");
+          setTimeout(() => {
+            window.location = "/";
+          }, 3000);
+        });
       } else {
         return true;
       }
@@ -336,9 +256,7 @@ export default {
 };
 </script>
 <style>
-/*main.css */
 :root {
-  /*variáveis*/
   --color-background: #f0f0f7;
   --color-primary-lighter: #4865e6;
   --color-primary-light: #3051e2;
