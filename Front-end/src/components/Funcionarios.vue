@@ -19,8 +19,6 @@
         <fieldset>
           <legend>Funcionários cadastrados</legend>
           <div id="alinhamento">
-            <button @click="fetchEmployees"><h3>Ver cadastros</h3></button>
-
             <div class="input-block1">
               <input
                 type="text"
@@ -35,14 +33,6 @@
             <button @click="fetchEmployeeByCpf" class="pesquisa">
               <img src="/../assets/lupa.png" alt="lupa" />
               <h3>Buscar</h3>
-            </button>
-          </div>
-
-          <div id="alinhamento">
-            <button>
-              <router-link to="/updateFuncionario"
-                ><h3>Atualizar cadastros</h3></router-link
-              >
             </button>
 
             <div class="input-block1">
@@ -60,41 +50,38 @@
               <img src="/../assets/filtro.ico" alt="filtro" />
               <h3>Filtrar</h3>
             </button>
-
-            <br />
-            <br />
           </div>
+          <br /><br /><br />
 
-          <div id="alinhamento3">
-            <div class="input-block3">
-              <input
-                type="number"
-                quantidade=""
-                id="id"
-                v-model="id"
-                required="required"
-                placeholder="Digite o Id"
-              />
-            </div>
+          <ul>
+            <li v-for="employee in employees" :key="employee.id">
+              <br />
+              <p>Id: {{ employee.id }}</p>
+              <p>Nome: {{ employee.nome }}</p>
+              <p>Email: {{ employee.email }}</p>
+              <p>CPF: {{ employee.cpf }}</p>
+              <p>Cargo: {{ employee.cargo }}</p>
+              <p>Senha: ******</p>
+              <button
+                type="button"
+                @click="
+                  $router.push({
+                    name: 'UpdateFuncionario',
+                    params: { id: employee.id },
+                  })
+                "
+              >
+                Editar
+                <i class="fas fa-edit"></i>
+              </button>
 
-            <button @click="deleteEmployeeById" class="pesquisa1">
-              <img src="/../assets/lixeira.png" alt="remover" />
-              <h3>Remover</h3>
-            </button>
-
-            <br />
-            <br />
-          </div>
-          <li v-for="employee in employees" :key="employee.id">
-            <br />
-            <p>Id: {{ employee.id }}</p>
-            <p>Nome: {{ employee.nome }}</p>
-            <p>Email: {{ employee.email }}</p>
-            <p>CPF: {{ employee.cpf }}</p>
-            <p>Cargo: {{ employee.cargo }}</p>
-            <p>Senha: {{ employee.senha }}</p>
-            <br /><br />
-          </li>
+              <button type="button" @click="deleteEmployeeById(employee.id)">
+                Excluir
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              <br /><br />
+            </li>
+          </ul>
         </fieldset>
       </main>
     </div>
@@ -120,7 +107,9 @@ export default {
       baseURI: "http://localhost:8080/api/employees",
     };
   },
-
+  created: function () {
+    this.fetchEmployees();
+  },
   methods: {
     fetchEmployees: function () {
       this.$http.get(this.baseURI).then((result) => {
@@ -148,8 +137,10 @@ export default {
           console.log(error);
         });
     },
-    deleteEmployeeById: function () {
-      this.$http.delete(this.baseURI + "/" + this.id).then((result) => {
+    deleteEmployeeById: function (id) {
+      this.$http.delete(this.baseURI + "/" + id).then((result) => {
+        this.fetchEmployees();
+        alert("Deletado com sucesso!");
         console.log(result.status);
       });
     },
@@ -201,7 +192,7 @@ h3 {
 
   width: 180px;
   margin: 3.2rem 20px 0px 100px;
-  margin-left: 100px;
+  margin-left: 4px;
 }
 
 .input-block2 input,

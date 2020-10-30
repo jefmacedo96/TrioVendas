@@ -15,20 +15,17 @@
         </div>
       </header>
       <main>
-        <form id="create-registration" onsubmit="return validaCadastro()">
+        <form id="create-registration">
           <fieldset>
             <legend>Insira os novos dados do Funcionário</legend>
-            <div class="input-block">
-              <label for="name">Id</label>
-              <input type="text" v-model="id" required="required" />
-            </div>
+
             <div class="input-block">
               <label for="name">Nome completo</label>
               <input
                 type="text"
                 nome=""
                 id="nome"
-                v-model="nome"
+                v-model="employee.nome"
                 required="required"
               />
               <span class="msg-erro msg-nome"></span>
@@ -38,7 +35,7 @@
               <input
                 type="email"
                 id="email"
-                v-model="email"
+                v-model="employee.email"
                 required="required"
               />
             </div>
@@ -47,7 +44,7 @@
               <input
                 id="cpf"
                 type="number"
-                v-model="cpf"
+                v-model="employee.cpf"
                 placeholder="xxx.xxx.xxx-xx"
                 required="required"
               />
@@ -58,7 +55,7 @@
                 type="text"
                 nome=""
                 id="cargo"
-                v-model="cargo"
+                v-model="employee.cargo"
                 required="required"
               />
               <span class="msg-erro msg-nome"></span>
@@ -71,7 +68,7 @@
               <input
                 name="senha"
                 id="senha"
-                v-model="senha"
+                v-model="employee.senha"
                 type="password"
                 required="required"
               />
@@ -110,7 +107,7 @@
           <button
             type="button"
             form="create-registration"
-            @click="putEmployee"
+            @click="editRegister"
           >
             Atualizar cadastro
           </button>
@@ -132,9 +129,9 @@
 <script>
 export default {
   name: "UpdateFuncionario",
+  props: ["id"],
   data() {
     return {
-      id: 0,
       login: "",
       senha: "",
       nome: "",
@@ -147,21 +144,29 @@ export default {
       baseURI: "http://localhost:8080/api/employees",
     };
   },
+  created: function () {
+    this.$http
+      .get(this.baseURI + "/" + this.id)
+      .then((result) => {
+        this.employee = result.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
   methods: {
-    putEmployee: function () {
+    editRegister: function () {
       let obj = {
-        nome: this.nome,
-        email: this.email,
-        cpf: this.cpf,
-        cargo: this.cargo,
-        senha: this.senha,
+        nome: this.employee.nome,
+        email: this.employee.email,
+        cpf: this.employee.cpf,
+        senha: this.employee.senha,
+        cargo: this.employee.cargo,
       };
       this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-        console.log(result);
-        this.employee = result.data;
+        this.$router.push({ name: "Funcionarios" });
       });
     },
-
     mostrarSenha: function () {
       let btn = document.querySelector(".eye2");
       btn.addEventListener("click", function () {
@@ -231,7 +236,7 @@ export default {
         });
         return false;
       }
-      if (erro == false) {
+      /*if (erro == false) {
         let obj = {
           nome: this.nome,
           email: this.email,
@@ -250,7 +255,7 @@ export default {
         });
       } else {
         return true;
-      }
+      }*/
     },
   },
 };

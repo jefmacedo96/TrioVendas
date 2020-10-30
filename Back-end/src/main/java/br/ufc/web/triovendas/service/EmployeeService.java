@@ -62,6 +62,7 @@ public class EmployeeService {
 			employeeAux.setCpf(cpf);
 			employeeAux.setSenha(senha);
 			employeeAux.setCargo(cargo);
+			employeeRepo.save(employeeAux);
 		}
 
 		return employeeAux;

@@ -78,9 +78,10 @@ const routes = [
     component: UpdateCliente
   },
   {
-    path: '/updateFuncionario',
+    path: '/funcionarios/atualizar/:id',
     name: 'UpdateFuncionario',
-    component: UpdateFuncionario
+    component: UpdateFuncionario,
+    props: true,
   },
   {
     path: '*', redirect: '/'
