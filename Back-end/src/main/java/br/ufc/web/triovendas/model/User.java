@@ -1,8 +1,12 @@
 package br.ufc.web.triovendas.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity(name = "users")
 public class User {
@@ -10,13 +14,32 @@ public class User {
 	@Id
 	@GeneratedValue
 	int id;
+	
+	@NotBlank(message = "Seu cpf deve possuir 11 caracteres")
+	@Column(length=11)
 	String cpf;
+	
+	@NotBlank
+	@Size(min = 6, message = "Sua senha deve possuir pelo menos 6 caracteres")
 	String senha;
+	
+	@NotBlank(message = "O nome não pode ser null")
 	String nome;
+	
+	@NotBlank(message = "O email não pode ser null")
 	String email;
+	
+	@NotBlank
+	@Size(min = 12, message = "Seu telefone deve possuir pelo menos 12 caracteres")
 	String telefone;
+	
+	@NotBlank(message = "O estado não pode ser null")
 	String estado;
+	
+	@NotBlank(message = "A cidade não pode ser null")
 	String cidade;
+	
+	@NotBlank(message = "O complemento não pode ser null")
 	String complemento;
 
 	public User() {

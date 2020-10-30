@@ -78,4 +78,5 @@ public class UserService {
 	public User getUserByCpfAndSenha(String cpf, String senha) {
 		return userRepo.findFirstByCpfAndSenha(cpf, senha);
 	}
+
 }
