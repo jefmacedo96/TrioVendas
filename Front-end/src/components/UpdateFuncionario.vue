@@ -15,10 +15,13 @@
         </div>
       </header>
       <main>
-        <form id="create-registration">
+        <form id="create-registration" onsubmit="return validaCadastro()">
           <fieldset>
             <legend>Insira os novos dados do Funcionário</legend>
-
+            <div class="input-block">
+              <label for="name">Id</label>
+              <input type="text" v-model="employee.id" required="required" />
+            </div>
             <div class="input-block">
               <label for="name">Nome completo</label>
               <input

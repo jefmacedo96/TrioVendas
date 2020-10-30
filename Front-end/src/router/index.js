@@ -73,9 +73,10 @@ const routes = [
     component: Stock
   },
   {
-    path: '/updateCliente',
+    path: '/clientes/atualizar/:id',
     name: 'UpdateCliente',
-    component: UpdateCliente
+    component: UpdateCliente,
+    props: true,
   },
   {
     path: '/funcionarios/atualizar/:id',

@@ -23,9 +23,11 @@
         <li><router-link to="/" class="voltar">Fechar</router-link></li>
         <li><router-link to="/login">Tela Inicial</router-link></li>
         <li><router-link to="produtos">Catálogo</router-link></li>
+        <li><a href="/cadastrarFuncionario">Cadastrar funcionário</a></li>
         <li><a href="/furnitures">Cadastrar móveis</a></li>
         <li><a href="/stock">Ver estoque</a></li>
         <li><router-link to="/clientes">Clientes cadastrados</router-link></li>
+        <li><router-link to="/funcionários">Funcionários cadastrados</router-link></li>
       </ul>
     </nav>
 

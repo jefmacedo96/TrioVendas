@@ -20,7 +20,7 @@
             <legend>Insira os dados do cliente</legend>
             <div class="input-block">
               <label for="name">Id</label>
-              <input type="text" v-model="id" required="required" />
+              <input type="text" v-model="user.id" required="required" />
             </div>
             <div class="input-block">
               <label for="name">Nome completo</label>
@@ -28,7 +28,7 @@
                 type="text"
                 nome=""
                 id="nome"
-                v-model="nome"
+                v-model="user.nome"
                 required="required"
               />
               <span class="msg-erro msg-nome"></span>
@@ -38,7 +38,7 @@
               <input
                 type="email"
                 id="email"
-                v-model="email"
+                v-model="user.email"
                 required="required"
               />
             </div>
@@ -47,7 +47,7 @@
               <input
                 id="cpf"
                 type="number"
-                v-model="cpf"
+                v-model="user.cpf"
                 placeholder="xxx.xxx.xxx-xx"
                 required="required"
               />
@@ -59,7 +59,7 @@
               <input
                 name="telefone"
                 id="telefone"
-                v-model="telefone"
+                v-model="user.telefone"
                 placeholder="(DDD) xxxxx - xxxx"
                 type="number"
                 required="required"
@@ -75,7 +75,7 @@
               <input
                 name="estado"
                 id="subject"
-                v-model="estado"
+                v-model="user.estado"
                 type="text"
                 required="required"
               />
@@ -87,7 +87,7 @@
               <input
                 name="cidade"
                 id="subject"
-                v-model="cidade"
+                v-model="user.cidade"
                 type="text"
                 required="required"
               />
@@ -100,7 +100,7 @@
               <input
                 name="complemento"
                 id="complemento"
-                v-model="complemento"
+                v-model="user.complemento"
                 type="text"
                 required="required"
               />
@@ -113,7 +113,7 @@
               <input
                 name="senha"
                 id="senha"
-                v-model="senha"
+                v-model="user.senha"
                 type="password"
                 required="required"
               />
@@ -152,7 +152,7 @@
           <button
             type="button"
             form="create-registration"
-            @click="validaCadastro"
+            @click="editRegister"
           >
             Atualizar cadastro
           </button>
@@ -173,7 +173,8 @@
 
 <script>
 export default {
-  name: "CadUser",
+  name: "UpdateCliente",
+  props: ["id"],
   data() {
     return {
       id: 0,
@@ -192,21 +193,30 @@ export default {
       baseURI: "http://localhost:8080/api/users",
     };
   },
+  created: function () {
+    this.$http
+      .get(this.baseURI + "/" + this.id)
+      .then((result) => {
+        this.user = result.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
   methods: {
-    putUser: function () {
+    editRegister: function () {
       let obj = {
-        nome: this.nome,
-        email: this.email,
-        cpf: this.cpf,
-        telefone: this.telefone,
-        senha: this.senha,
-        estado: this.estado,
-        cidade: this.cidade,
-        complemento: this.complemento,
+        nome: this.user.nome,
+        email: this.user.email,
+        cpf: this.user.cpf,
+        telefone: this.user.telefone,
+        senha: this.user.senha,
+        estado: this.user.estado,
+        cidade: this.user.cidade,
+        complemento: this.user.complemento,
       };
       this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-        console.log(result);
-        this.user = result.data;
+        this.$router.push({ name: "Clientes" });
       });
     },
 
@@ -279,7 +289,7 @@ export default {
         });
         return false;
       }
-      if (erro == false) {
+      /*if (erro == false) {
         let obj = {
           nome: this.nome,
           email: this.email,
@@ -301,7 +311,7 @@ export default {
         });
       } else {
         return true;
-      }
+      }*/
     },
   },
 };

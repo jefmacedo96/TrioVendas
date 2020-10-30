@@ -137,7 +137,7 @@ export default {
                 console.log(error);
             });
         },
-
+ 
         fetchFurnitureByQuant: function() {
             this.$http.get(this.baseURI + "/quant?quant=" + this.quant).then((result) => {
                 this.furnitures = result.data;

@@ -19,8 +19,6 @@
         <fieldset>
           <legend>Clientes cadastrados</legend>
           <div id="alinhamento">
-            <button @click="fetchUsers"><h3>Ver cadastros</h3></button>
-
             <div class="input-block1">
               <input
                 type="text"
@@ -35,14 +33,6 @@
             <button @click="fetchUserByCpf" class="pesquisa">
               <img src="/../assets/lupa.png" alt="lupa" />
               <h3>Buscar</h3>
-            </button>
-          </div>
-
-          <div id="alinhamento">
-            <button>
-              <router-link to="/updateCliente"
-                ><h3>Atualizar cadastros</h3></router-link
-              >
             </button>
 
             <div class="input-block1">
@@ -60,46 +50,43 @@
               <img src="/../assets/filtro.ico" alt="filtro" />
               <h3>Filtrar</h3>
             </button>
-
             <br />
-            <br />
-          </div>
-
-          <div id="alinhamento3">
-            <div class="input-block3">
-              <input
-                type="number"
-                quantidade=""
-                id="id"
-                v-model="id"
-                required="required"
-                placeholder="Digite o Id"
-              />
-            </div>
-
-            <button @click="deleteUserById" class="pesquisa1">
-              <img src="/../assets/lixeira.png" alt="remover" />
-              <h3>Remover</h3>
-            </button>
-
             <br />
             <br />
           </div>
-          <li v-for="user in users" :key="user.id">
-            <br />
-            <p>Id: {{ user.id }}</p>
-            <p>Nome: {{ user.nome }}</p>
-            <p>Email: {{ user.email }}</p>
-            <p>CPF: {{ user.cpf }}</p>
-            <p>Telefone: {{ user.telefone }}</p>
-            <p>Senha: {{ user.senha }}</p>
-            <p>
-              Endereço: {{ user.estado }}, {{ user.cidade }},
-              {{ user.complemento }}.
-            </p>
+          <ul>
+            <li v-for="user in users" :key="user.id">
+              <br />
+              <p>Id: {{ user.id }}</p>
+              <p>Nome: {{ user.nome }}</p>
+              <p>Email: {{ user.email }}</p>
+              <p>CPF: {{ user.cpf }}</p>
+              <p>Telefone: {{ user.telefone }}</p>
+              <p>Senha: ******</p>
+              <p>
+                Endereço: {{ user.estado }}, {{ user.cidade }},
+                {{ user.complemento }}.
+              </p>
+              <button
+                type="button"
+                @click="
+                  $router.push({
+                    name: 'UpdateCliente',
+                    params: { id: user.id },
+                  })
+                "
+              >
+                Editar
+                <i class="fas fa-edit"></i>
+              </button>
 
-            <br /><br />
-          </li>
+              <button type="button" @click="deleteUserById(user.id)">
+                Excluir
+                <i class="fas fa-trash-alt"></i>
+              </button>
+              <br /><br />
+            </li>
+          </ul>
         </fieldset>
       </main>
     </div>
@@ -108,7 +95,7 @@
 
 <script>
 export default {
-  name: "Users",
+  name: "Clientes",
   data() {
     return {
       id: 0,
@@ -128,7 +115,9 @@ export default {
       baseURI: "http://localhost:8080/api/users",
     };
   },
-
+  created: function () {
+    this.fetchUsers();
+  },
   methods: {
     fetchUsers: function () {
       this.$http.get(this.baseURI).then((result) => {
@@ -156,8 +145,10 @@ export default {
           console.log(error);
         });
     },
-    deleteUserById: function () {
-      this.$http.delete(this.baseURI + "/" + this.id).then((result) => {
+    deleteUserById: function (id) {
+      this.$http.delete(this.baseURI + "/" + id).then((result) => {
+        this.fetchUsers();
+        alert("Deletado com sucesso!");
         console.log(result.status);
       });
     },
