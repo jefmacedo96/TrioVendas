@@ -19,7 +19,7 @@
         <fieldset>
           <legend>Funcionários cadastrados</legend>
           <div id="alinhamento">
-            <div class="input-block1">
+            <div class="input-blockcliente">
               <input
                 type="text"
                 cpf=""
@@ -30,12 +30,12 @@
               />
             </div>
 
-            <button @click="fetchEmployeeByCpf" class="pesquisa">
-              <img src="/../assets/lupa.png" alt="lupa" />
+            <button id="lupa" @click="fetchEmployeeByCpf" class="pesquisa">
+              <img id="imagemlupa" src="/../assets/lupa.png" alt="lupa" />
               <h3>Buscar</h3>
             </button>
 
-            <div class="input-block1">
+            <div class="input-blockcliente2">
               <input
                 type="number"
                 quantidade=""
@@ -46,12 +46,14 @@
               />
             </div>
 
-            <button @click="fetchEmployeeByQuantidade" class="pesquisa">
-              <img src="/../assets/filtro.ico" alt="filtro" />
+            <button  @click="fetchEmployeeByQuantidade" class="pesquisa">
+              <img id="imagemfiltro" src="/../assets/filtro.ico" alt="filtro" />
               <h3>Filtrar</h3>
             </button>
           </div>
-          <br /><br /><br />
+          <br />
+          <br />
+          <br />
 
           <ul>
             <li v-for="employee in employees" :key="employee.id">
@@ -62,7 +64,9 @@
               <p>CPF: {{ employee.cpf }}</p>
               <p>Cargo: {{ employee.cargo }}</p>
               <p>Senha: ******</p>
-              <button
+
+              <div id="alinhamentobotao">
+              <button id="editar"
                 type="button"
                 @click="
                   $router.push({
@@ -75,10 +79,11 @@
                 <i class="fas fa-edit"></i>
               </button>
 
-              <button type="button" @click="deleteEmployeeById(employee.id)">
+              <button id="excluir" type="button" @click="deleteEmployeeById(employee.id)">
                 Excluir
                 <i class="fas fa-trash-alt"></i>
               </button>
+              </div>
               <br /><br />
             </li>
           </ul>
@@ -149,6 +154,33 @@ export default {
 </script>
 
 <style>
+.input-blockfunc input {
+  height: 5.6rem;
+  border-radius: 0.8rem;
+  background: var(--color-input-background);
+  border: 1px solid var(--color-line-in-write);
+  outline: 0;
+  padding: 0 1.6rem;
+  font: 1.6rem Archivo;
+
+  width: 150px;
+  margin: 3.2rem 0px 0px 100px;
+  margin-left: 4px;
+}
+
+.input-blockfunc2 input {
+  height: 5.6rem;
+  border-radius: 0.8rem;
+  background: var(--color-input-background);
+  border: 1px solid var(--color-line-in-write);
+  outline: 0;
+  padding: 0 1.6rem;
+  font: 1.6rem Archivo;
+
+  width: 170px;
+  margin: 3.2rem 10px 0px -100px;
+  margin-left: 20px;
+}
 p {
   font-size: 1.9rem;
   color: var(--color-text-complement);

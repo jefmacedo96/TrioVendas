@@ -20,7 +20,7 @@
     <div class="bg"></div>
     <nav class="menu" id="principal">
       <ul>
-        <li><router-link to="/" class="voltar">Fechar</router-link></li>
+        <li><a href="" class="voltar">Fechar</a></li>
         <li><router-link to="/">Tela Inicial</router-link></li>
         <li><router-link to="/produtos">Catálogo</router-link></li>
         <li><router-link to="/carrinho">Ver carrinho</router-link></li>
@@ -85,11 +85,6 @@ export default {
 
 <style>
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  width: 100%;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -112,10 +107,6 @@ body {
 .menu-icon:hover {
   background-color: #9c98a6;
   color: #fff;
-}
-
-#chk {
-  display: none;
 }
 
 .menu {

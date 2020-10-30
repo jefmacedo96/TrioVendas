@@ -19,7 +19,7 @@
         <fieldset>
           <legend>Clientes cadastrados</legend>
           <div id="alinhamento">
-            <div class="input-block1">
+            <div class="input-blockcliente">
               <input
                 type="text"
                 cpf=""
@@ -30,12 +30,12 @@
               />
             </div>
 
-            <button @click="fetchUserByCpf" class="pesquisa">
-              <img src="/../assets/lupa.png" alt="lupa" />
+            <button id="lupa" @click="fetchUserByCpf" class="pesquisa">
+              <img id="imagemlupa" src="/../assets/lupa.png" alt="lupa" />
               <h3>Buscar</h3>
             </button>
 
-            <div class="input-block1">
+            <div class="input-blockcliente2">
               <input
                 type="number"
                 quantidade=""
@@ -47,7 +47,7 @@
             </div>
 
             <button @click="fetchUserByQuantidade" class="pesquisa">
-              <img src="/../assets/filtro.ico" alt="filtro" />
+              <img id="imagemfiltro" src="/../assets/filtro.ico" alt="filtro" />
               <h3>Filtrar</h3>
             </button>
             <br />
@@ -67,7 +67,8 @@
                 Endereço: {{ user.estado }}, {{ user.cidade }},
                 {{ user.complemento }}.
               </p>
-              <button
+              <div id="alinhamentobotao">
+              <button id="editar"
                 type="button"
                 @click="
                   $router.push({
@@ -80,10 +81,11 @@
                 <i class="fas fa-edit"></i>
               </button>
 
-              <button type="button" @click="deleteUserById(user.id)">
+              <button id="excluir" type="button" @click="deleteUserById(user.id)">
                 Excluir
                 <i class="fas fa-trash-alt"></i>
               </button>
+              </div>
               <br /><br />
             </li>
           </ul>
@@ -157,6 +159,45 @@ export default {
 </script>
 
 <style>
+#editar,
+#excluir {
+  width: 25%;
+  height: 5.6rem;
+  background: var(--color-secondary);
+  color: white;
+  border: 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  font: 700 1.6rem Archivo;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  transition: 0.2s;
+  margin-top: 3.2rem;
+}
+#editar{
+  margin: 20px 50px 0px 50px;
+}
+#excluir{
+  margin: 20px 50px 0px 50px;
+  background: rgb(252, 76, 76);
+
+}
+#editar:hover {
+  background: var(--color-secondary-dark);
+}
+
+#excluir:hover {
+   background: rgb(250, 29, 29);
+}
+#alinhamentobotao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 p {
   font-size: 1.9rem;
   color: var(--color-text-complement);
@@ -181,6 +222,10 @@ button {
   margin-top: 3.2rem;
 }
 
+#lupa{
+  margin-left:10px;
+}
+
 button:hover {
   background: var(--color-secondary-dark);
 }
@@ -189,7 +234,7 @@ h3 {
   color: white;
 }
 
-.input-block1 input {
+.input-blockcliente input {
   height: 5.6rem;
   border-radius: 0.8rem;
   background: var(--color-input-background);
@@ -198,12 +243,12 @@ h3 {
   padding: 0 1.6rem;
   font: 1.6rem Archivo;
 
-  width: 180px;
-  margin: 3.2rem 20px 0px 100px;
-  margin-left: 100px;
+  width: 150px;
+  margin: 3.2rem 0px 0px 100px;
+  margin-left: 4px;
 }
 
-.input-block2 input,
+.input-blockcliente2 input,
 .input-block3 input {
   height: 5.6rem;
   border-radius: 0.8rem;
@@ -213,9 +258,9 @@ h3 {
   padding: 0 1.6rem;
   font: 1.6rem Archivo;
 
-  width: 180px;
-  margin: 3.2rem 20px 0px -100px;
-  margin-left: 250px;
+  width: 170px;
+  margin: 3.2rem 10px 0px -100px;
+  margin-left: 20px;
 }
 
 #alinhamento {
@@ -247,13 +292,22 @@ h3 {
   margin-left: -60px;
 }
 
-button img {
+ #imagemlupa{
   position: absolute;
   cursor: pointer;
   width: 40px;
   height: 40px;
-  margin-left: -55px;
+  margin-left: -42px;
 }
+
+#imagemfiltro{
+  position: absolute;
+  cursor: pointer;
+  width: 27px;
+  height: 27px;
+  margin-left: -43px;
+}
+
 .pesquisa {
   background: #787680cb;
 }

@@ -189,55 +189,6 @@ export default {
     };
   },
   methods: {
-    fetchUsers: function () {
-      this.$http.get(this.baseURI).then((result) => {
-        this.users = result.data;
-      });
-    },
-
-    fetchUserByLogin: function () {
-      this.$http
-        .get(this.baseURI + "/" + "?login=" + this.login)
-        .then((result) => {
-          this.user = result.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    postUser: function () {
-      this.$http
-        .post(this.baseURI, {
-          nome: this.nome,
-          email: this.email,
-          cpf: this.cpf,
-          telefone: this.telefone,
-          senha: this.senha,
-          estado: this.estado,
-          cidade: this.cidade,
-          complemento: this.complemento,
-        })
-        .then((result) => {
-          console.log(result);
-          this.user = result.data;
-        });
-    },
-    putUser: function () {
-      this.$http
-        .put(this.baseURI + "/" + this.id, {
-          login: this.login,
-          password: this.password,
-        })
-        .then((result) => {
-          console.log(result);
-          this.user = result.data;
-        });
-    },
-    deleteUserById: function () {
-      this.$http.delete(this.baseURI + "/" + this.id).then((result) => {
-        console.log(result.status);
-      });
-    },
     mostrarSenha: function () {
       let btn = document.querySelector(".eye2");
       btn.addEventListener("click", function () {
@@ -296,16 +247,6 @@ export default {
       if (confirmeSenha != senha) {
         alert("As senhas não coincidem! Digite novamente");
         erro = true;
-      }
-
-      if (erro) {
-        buttonSave.addEventListener("click", () => {
-          modal.classList.remove("hide");
-          setTimeout(() => {
-            window.location = "/";
-          }, 3000);
-        });
-        return false;
       }
       if (erro == false) {
         this.$http

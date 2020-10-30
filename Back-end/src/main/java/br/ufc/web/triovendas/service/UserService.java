@@ -17,7 +17,8 @@ public class UserService {
 	@Autowired
 	UserRepository userRepo;
 
-	public User addUser(String cpf, String senha, String nome, String email, String telefone, String estado, String cidade, String complemento) {
+	public User addUser(String cpf, String senha, String nome, String email, String telefone, String estado,
+			String cidade, String complemento) {
 		User user = new User(cpf, senha, nome, email, telefone, estado, cidade, complemento);
 		return userRepo.save(user);
 	}
@@ -55,7 +56,8 @@ public class UserService {
 		return consulta;
 	}
 
-	public User updateUser(Integer id, String cpf, String senha, String nome, String email, String telefone, String estado, String cidade, String complemento) {
+	public User updateUser(Integer id, String cpf, String senha, String nome, String email, String telefone,
+			String estado, String cidade, String complemento) {
 		User userAux = userRepo.findById(id).get();
 
 		if (userAux != null) {
@@ -71,5 +73,9 @@ public class UserService {
 		}
 
 		return userAux;
+	}
+
+	public User getUserByCpfAndSenha(String cpf, String senha) {
+		return userRepo.findFirstByCpfAndSenha(cpf, senha);
 	}
 }

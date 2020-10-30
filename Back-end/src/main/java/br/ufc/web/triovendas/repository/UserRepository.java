@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 	List<User> findByCpf(String cpf);
 
+	User findFirstByCpfAndSenha(String cpf, String senha);
+
 }

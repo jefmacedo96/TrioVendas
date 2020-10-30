@@ -18,16 +18,16 @@
     <label for="chk" class="menu-icon">&#9776;</label>
 
     <div class="bg"></div>
-    <nav class="menu" id="principal">
-      <ul>
-        <li><router-link to="/" class="voltar">Fechar</router-link></li>
-        <li><router-link to="/login">Tela Inicial</router-link></li>
+    <nav class="menu" id="principal1">
+      <ul id="me">
+        <li><a href="" class="voltar">Fechar</a></li>
+        <li><router-link to="/">Tela Inicial</router-link></li>
         <li><router-link to="produtos">Catálogo</router-link></li>
-        <li><a href="/cadastrarFuncionario">Cadastrar funcionário</a></li>
-        <li><a href="/furnitures">Cadastrar móveis</a></li>
         <li><a href="/stock">Ver estoque</a></li>
         <li><router-link to="/clientes">Clientes cadastrados</router-link></li>
-        <li><router-link to="/funcionários">Funcionários cadastrados</router-link></li>
+        <li><router-link to="/funcionarios">Funcionários cadastrados</router-link></li>
+        <li><a href="/cadastrarFuncionario">Cadastrar funcionário</a></li>
+        <li><a href="/furnitures">Cadastrar móveis</a></li>
       </ul>
     </nav>
 
@@ -65,10 +65,14 @@
             <td id="vazio"></td>
             <td><br /><input id="botao" type="submit" value="Login" /></td>
           </tr>
+          
         </table>
+        
       </form>
     </div>
+    
   </div>
+
 </template>
 
 <script>
@@ -81,14 +85,17 @@ export default {
 img {
   max-width: 100%;
 }
-#topo {
-  width: 100%;
-  height: 26%;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-  border-bottom-color: #0a246a;
-  background-position: center center;
-  background-color: skyblue;
+
+#principal1 {
+  width: 200px;
+  left: -300px;
+}
+#chk:checked ~ .bg {
+  display: block;
+}
+
+#chk:checked ~ #principal1 {
+  transform: translateX(300px);
 }
 
 body {
@@ -101,27 +108,9 @@ body {
   padding: 0;
 }
 
-.menu-icon {
-  font-size: 25px;
-  font-weight: bold;
-  padding: 5px;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  background-color: #696969;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.4s;
-  left: 300px;
-}
-
 .menu-icon:hover {
   background-color: #9c98a6;
   color: #fff;
-}
-
-#chk {
-  display: none;
 }
 
 .menu {
@@ -132,13 +121,10 @@ body {
   transition: all 0.2s;
 }
 
-#principal {
-  width: 200px;
-  left: -300px;
-}
 
-ul {
+#me {
   list-style: none;
+  width: 205px;
 }
 
 ul li a {
@@ -152,11 +138,14 @@ ul li a {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: -300px;
+ 
 }
 
 ul li span {
   float: right;
   padding-right: 10px;
+   
 }
 
 ul li a:hover {
@@ -178,13 +167,6 @@ ul li a:hover {
   display: none;
 }
 
-#chk:checked ~ .bg {
-  display: block;
-}
-
-#chk:checked ~ #principal {
-  transform: translateX(300px);
-}
 
 #interacao,
 #celula {

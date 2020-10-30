@@ -3,7 +3,7 @@
     <div id="container">
       <header class="page-header">
         <div class="top-bar-container">
-          <router-link to="/">
+          <router-link to="/loginFunc">
             <img src="/../assets/back.svg" alt="Voltar" />
           </router-link>
           <img src="/../assets/logo.png" alt="Teixeira Móveis" />
@@ -144,52 +144,6 @@ export default {
     };
   },
   methods: {
-    fetchEmployees: function () {
-      this.$http.get(this.baseURI).then((result) => {
-        this.employees = result.data;
-      });
-    },
-
-    fetchEmployeeByLogin: function () {
-      this.$http
-        .get(this.baseURI + "/" + "?login=" + this.login)
-        .then((result) => {
-          this.employee = result.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    postEmployee: function () {
-      this.$http
-        .post(this.baseURI, {
-          nome: this.nome,
-          email: this.email,
-          cpf: this.cpf,
-          cargo: this.cargo,
-          senha: this.senha,
-        })
-        .then((result) => {
-          console.log(result);
-          this.employee = result.data;
-        });
-    },
-    putEmployee: function () {
-      this.$http
-        .put(this.baseURI + "/" + this.id, {
-          login: this.login,
-          password: this.password,
-        })
-        .then((result) => {
-          console.log(result);
-          this.employee = result.data;
-        });
-    },
-    deleteEmployeeById: function () {
-      this.$http.delete(this.baseURI + "/" + this.id).then((result) => {
-        console.log(result.status);
-      });
-    },
     mostrarSenha: function () {
       let btn = document.querySelector(".eye2");
       btn.addEventListener("click", function () {
@@ -249,16 +203,6 @@ export default {
         alert("As senhas não coincidem! Digite novamente");
         erro = true;
       }
-
-      if (erro) {
-        buttonSave.addEventListener("click", () => {
-          modal.classList.remove("hide");
-          setTimeout(() => {
-            window.location = "/";
-          }, 3000);
-        });
-        return false;
-      }
       if (erro == false) {
         this.$http
           .post(this.baseURI, {
@@ -274,7 +218,7 @@ export default {
 
             modal.classList.remove("hide");
             setTimeout(() => {
-              window.location = "/";
+              window.location = "/loginFunc";
             }, 3000);
           });
       } else {
