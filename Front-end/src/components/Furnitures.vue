@@ -1,6 +1,6 @@
 <template>
     <div class="furniture">
-
+    <div id="container">
     <header class="page-header">
         <div class="top-bar-container">
         <a href="loginFunc">
@@ -15,38 +15,74 @@
         </div>
     </header>
        <main>
-            <form action="" id="create-registration" onsubmit= "return validaCadastro()">
+            <form id="create-registration" onsubmit= "return validaCadastro()">
             <fieldset>
                 <legend>Insira os dados do produto</legend>
                     <div class="input-block">
                         <label id="legenda" for="nome">Nome do produto</label>
-                        <input type="text" name="" id="" v-model="nome" required />
+                        <input 
+                        type="text" 
+                        name="nome" 
+                        id="nome" 
+                        v-model="nome" 
+                        required="required" 
+                        />
                         <span class='msg-erro msg-nome'></span>
                     </div>
                     <div class="input-block">
                         <label id="legenda" for="numero">Número de série</label>
-                        <input type="text" name="" id="" v-model="serie" required />
+                        <input 
+                        type="text" 
+                        name="serie" 
+                        id="serie" 
+                        v-model="serie"
+                        placeholder="xxxxxxxxxxxx" 
+                        required="required" 
+                        />
                     </div>
                     <div class="input-block">
                         <label id="legenda" for="descricao">Descrição</label>
-                        <input type="text" name="" id="" v-model="descricao" required />
+                        <input 
+                        type="text" 
+                        name="descricao" 
+                        id="descricao" 
+                        v-model="descricao" 
+                        required="required" 
+                        />
                     </div>
 					<div class="input-block">
-                        <label id="legenda" for="codigo">Código </label>
-                        <input name="codigo" id="codigo" type="number" required="required">
+                        <label id="legenda" for="quantidade">Quantidade </label>
+                        <input 
+                        name="quantidade" 
+                        id="quantidade" 
+                        type="number" 
+                        v-model="quantidade"
+                        required="required"
+                        />
                     </div>
 					<div class="input-block">
-                        <label id="legenda" for="imagem">Imagem <small>(selecione um arquivo)</small></label>
+                        <label for="imagem">Imagem <small>(selecione um arquivo)</small></label>
                     </div>
                         <br>
-                        <br><input  type="file" id="file" ref="file" name="image" />
+                        <br>
+                        <input  
+                        type="file" 
+                        id="file" 
+                        ref="file" 
+                        name="image" 
+                        />
             </fieldset>
 
             <fieldset>
                 <legend>Informe o tipo de produto</legend>
                 <div class="input-block">
                     <label id="legenda" for="subject">Tipo</label>
-                    <input type="text" name="" id="" v-model="tipo" required />
+                    <input 
+                    type="text" 
+                    name="tipo" 
+                    id="tipo" 
+                    v-model="tipo" 
+                    required="required" />
                 </div>
             </fieldset>
 
@@ -54,7 +90,12 @@
                 <legend>Estamos quase lá</legend>
                     <div class="input-block" id="input-block3" >
                         <label id="legenda" for="valor">Digite o preço <small>(R$)</small></label>
-                        <input type="number" name="" id="" v-model="preco" required />
+                        <input 
+                        type="number" 
+                        name="preco" 
+                        id="preco" 
+                        v-model="preco" 
+                        required="required" />
                     </div>
             </fieldset>
             </form>
@@ -65,10 +106,24 @@
                     <br>
                     Preencha todos os dados
                 </p>
-                <button @click="postFurniture" form="create-registration">Inserir</button>
+                <button 
+                type="button"
+                @click="postFurniture" 
+                form="create-registration">Inserir</button>
             </footer>
         </main>
     </div>    
+
+    <div id="modal" class="hide">
+      <div class="content">
+        <div class="header">
+          <img src="/../assets/check.svg" alt="Cadastro concluído" />
+          <h1>Cadastro concluído</h1>
+        </div>
+      </div>
+    </div>
+    {{furniture.file}}
+</div>
 </template>
 
 <script>
@@ -89,7 +144,8 @@ export default {
             quant: "",
             furniture: {},
             furnitures: [],
-            baseURI: "http://localhost:8080/api/furnitures"
+            baseURI: "http://localhost:8080/api/furnitures",
+            baseUploadURI: "http://localhost:8080/upload",
         };
     },
     methods: {
@@ -154,10 +210,11 @@ export default {
                 serie: this.serie,
                 tipo: this.tipo,
                 preco: this.preco,
-                quantidade: this.quantidade
+                quantidade: this.quantidade,
             }).then((result) => {
                 console.log(result);
                 this.furniture = result.data;
+                this.handleFileUpload(this.furniture.id + '.png');
                 alert("Cadastro Realizado!")
             });
         },
@@ -169,10 +226,11 @@ export default {
                 serie: this.serie,
                 tipo: this.tipo,
                 preco: this.preco,
-                quantidade: this.quantidade
+                quantidade: this.quantidade,
             }).then((result) => {
                 console.log(result);
                 this.furniture = result.data;
+                this.handleFileUpload(this.furniture.id + '.png');
                 alert("Registro Atualizado!")
             });
         },
@@ -186,6 +244,7 @@ export default {
                 console.log(error);
             });
         },
+
     },
 };
 </script>

@@ -3,7 +3,6 @@ package br.ufc.web.triovendas.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 
 @Entity(name = "furnitures")
 public class Furniture {
@@ -12,22 +11,16 @@ public class Furniture {
 	@GeneratedValue
 	int id;
 	
-	@NotBlank(message = "O nome não pode ser null")
 	String nome;
 	
-	@NotBlank(message = "A descrição não pode ser null")
 	String descricao;
 	
-	@NotBlank(message = "A serie não pode ser null")
 	String serie;
 	
-	@NotBlank(message = "O tipo não pode ser null")
 	String tipo;
 	
-	@NotBlank(message = "O preço não pode ser null")
 	String preco;
 	
-	@NotBlank(message = "A quantidade não pode ser null")
 	String quantidade;
 	
 	public Furniture() {

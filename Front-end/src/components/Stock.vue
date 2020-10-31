@@ -16,10 +16,9 @@
 
     <main>        
     <fieldset>
-      <legend>Clientes cadastrados</legend>
+      <legend>Móveis cadastrados</legend>
         <div id="alinhamento">
           <button @click="fetchFurnitures"><h3>Ver móveis cadastros</h3></button>
-
           <div class="input-block1">
             <input type="text" v-model="serieget" required="required" placeholder="Digite a série"/>
           </div>
@@ -45,17 +44,19 @@
 
           <button @click="deleteFurniture" class="pesquisa1" ><img src="/../assets/lixeira.png" alt="remover"><h3>Remover</h3></button>
                   
-          <br>
-          <br>
-        </div>   
+          
+        </div> <br><br>  
       <li v-for="furniture in furnitures" :key="furniture.id">
         <br>
+
+        
         <p>Id: {{ furniture.id }}</p>
         <p>Nome: {{ furniture.nome }}</p>
         <p>Descrição: {{ furniture.descricao}}</p>
         <p>Número de série: {{ furniture.serie }}</p>
         <p>Tipo de produto: {{ furniture.tipo }}</p>
-        <p>Preço: {{ furniture.preco }}</p>
+        <p>Preço: {{ furniture.preco }}</p><br/>
+        <p><img :src="'/uploads/furniture/'+furniture.id+'.png'" width="300"/></p>
         
         <br><br>
       </li>
@@ -83,7 +84,8 @@ export default {
             quant: "",
             furniture: {},
             furnitures: [],
-            baseURI: "http://localhost:8080/api/furnitures"
+            baseURI: "http://localhost:8080/api/furnitures",
+            baseUploadURI: "http://localhost:8080/upload"
         };
     },
     methods: {
@@ -148,10 +150,11 @@ export default {
                 serie: this.serie,
                 tipo: this.tipo,
                 preco: this.preco,
-                quantidade: this.quantidade
+                quantidade: this.quantidade,
             }).then((result) => {
                 console.log(result);
                 this.furniture = result.data;
+                this.handleFileUpload(this.furniture.id);
                 alert("Cadastro Realizado!")
             });
         },
@@ -163,10 +166,11 @@ export default {
                 serie: this.serie,
                 tipo: this.tipo,
                 preco: this.preco,
-                quantidade: this.quantidade
+                quantidade: this.quantidade,
             }).then((result) => {
                 console.log(result);
                 this.furniture = result.data;
+                this.handleFileUpload(this.furniture.id);
                 alert("Registro Atualizado!")
             });
         },

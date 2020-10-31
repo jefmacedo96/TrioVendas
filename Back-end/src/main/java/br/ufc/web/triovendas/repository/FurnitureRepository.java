@@ -9,5 +9,6 @@ import br.ufc.web.triovendas.model.Furniture;
 public interface FurnitureRepository extends JpaRepository<Furniture, Integer> {
 	
 	List<Furniture> findBySerie(String serie);
+	List<Furniture> findByTipo(String tipo);
 
 }

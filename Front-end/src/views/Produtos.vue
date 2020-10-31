@@ -13,6 +13,9 @@
           <div class="header-content">
             <strong>Esses são os nossos móveis disponíveis</strong>
             <form id="search-product">
+                <button type="button" @click="fetchFurnitures"><h3>Ver todos os móveis</h3></button>
+              
+
               <div class="select-block">
                 <label for="order">Ordenar</label>
                 <select name="order" id="order">
@@ -22,59 +25,48 @@
                   <option value="2">Maior preço</option>
                 </select>
               </div>
+
               <div class="select-block">
-                <label for="products">Produtos</label>
-                <select name="products" id="products">
-                  <option value="" disabled="" hidden="">
-                    Selecione uma opção
-                  </option>
-                  <option value="0">Mesa</option>
-                  <option value="1">Cama</option>
-                  <option value="2">Guarda roupa</option>
-                  <option value="3">Sofá</option>
-                  <option value="4">Penteadeira</option>
-                  <option value="5">Cadeiras</option>
-                </select>
+                <label for="products">Tipo de Produtos</label>
+                  <div class="input-block1">
+                    <input type="text" v-model="tipoget" required="required" placeholder="Digite o tipo de produtos"/>
+                  </div>
               </div>
-              <button type="submit">Filtrar</button>
+              <button type="button" @click="fetchFurnitureByTipo">Filtrar</button>
             </form>
           </div>
         </header>
 
         <main>
-          <article class="stock-item">
-            <header>
-              <img
-                src="https://a-static.mlcdn.com.br/352x470/mesa-de-jantar-6-lugares-copenhage-nogueira-dakota-viero-moveis/panoramamoveis/41910/445e79f2e72245e091715950a6e88ccc.jpg"
-                alt="Mesa de jantar completa"
-              />
-              <div>
-                <strong>Mesa De Jantar 6 Lugares</strong>
-                <span>N° de série: 89604a5a</span>
-              </div>
-            </header>
-
-            <p>
-              <strong>Descrição:</strong>
-              Mesa de madeira com acabamento refinado, composta por MDP e MDF de
-              15 mm.
-              <br /><br />
-              <strong>Tipo de produto:</strong> sala.<br /><br />
-              <strong>Quantidade:</strong> 2 unidades em estoque.<br />
-            </p>
-
-            <footer>
-              <p>Preço do produto:<strong>R$ 816,81 à vista</strong></p>
-
-              <button type="button">
-                <router-link to="/login">
-                  <img id="carrinho"
-                    src="https://image.flaticon.com/icons/png/512/23/23258.png"
-                    alt="carrinho de compras"
-                  />Adicionar ao carrinho
-                </router-link>
-              </button>
-            </footer>
+          <article class="stock-item" v-for="furniture in furnitures" :key="furniture.id"> 
+                
+                  <footer >
+                      <img :src="'/uploads/furniture/'+furniture.id+'.png'" width="300" />
+                    <br />
+                  </footer>
+                  <br />
+                  
+                  <p >
+                    <strong>Produto: </strong>
+                    <strong>{{ furniture.nome}}</strong><br /><br />
+                    <strong>Descrição: </strong>
+                    <strong>{{ furniture.descricao}}</strong>
+                    <br /><br />
+                    <strong>Tipo de produto:</strong><strong> {{ furniture.tipo }}</strong><br /><br />
+                    <strong>Quantidade:</strong><strong> {{ furniture.quantidade }}</strong>
+                  </p>
+                  <footer>
+                  <p><strong>Preço do produto:</strong><strong>R$ {{ furniture.preco }} à vista</strong></p>
+                
+                  <button type="button">
+                    <router-link to="/login">
+                      <img id="carrinho"
+                        src="https://image.flaticon.com/icons/png/512/23/23258.png"
+                        alt="carrinho de compras"
+                      />Adicionar ao carrinho
+                    </router-link>
+                  </button>
+                </footer>
           </article>
         </main>
       </div>
@@ -85,6 +77,80 @@
 <script>
 export default {
   name: "Produtos",
+data() {
+        return {
+            file: null,
+            id: 0,
+            id2: 0,
+            nome: "",
+            descricao: "",
+            serie: "",
+            tipo: "",
+            preco: "",
+            quantidade: "",
+            tipoget:"",
+            quant: "",
+            furniture: {},
+            furnitures: [],
+            baseURI: "http://localhost:8080/api/furnitures",
+            baseUploadURI: "http://localhost:8080/upload",
+        };
+},
+    methods: {
+
+        handleFileUpload(id) {
+        this.file = this.$refs.file.files[0];
+    
+        let form = new FormData();
+        form.append("resource", "furniture");
+        form.append("id", id);
+        form.append("file", this.file);
+    
+        this.$http
+            .post(this.baseUploadURI, form, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            })
+            .then((result) => {
+            console.log(result);
+            });
+        },
+
+        fetchFurnitures: function() {
+            this.$http.get(this.baseURI).then((result) => {
+                this.furnitures = result.data;
+                alert("Buscando todos os registros")
+            });
+        },
+
+        fetchFurnitureById: function() {
+            this.$http.get(this.baseURI + "/" + this.id2).then((result) => {
+                this.furniture = result.data;
+                alert("Registro por ID")
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+
+        fetchFurnitureByTipo: function() {
+            this.$http.get(this.baseURI + "/tipo?tipo=" + this.tipoget).then((result) => {
+                this.furnitures = result.data;
+                alert("Filtragem por Tipo")
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+ 
+        fetchFurnitureByQuant: function() {
+            this.$http.get(this.baseURI + "/quant?quant=" + this.quant).then((result) => {
+                this.furnitures = result.data;
+                alert("Registros por Quantidade")
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+    },
 };
 </script>
 

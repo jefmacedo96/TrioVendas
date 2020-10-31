@@ -13,6 +13,7 @@ import UpdateCliente from '../components/UpdateCliente.vue'
 import CadFuncionario from '../components/CadFuncionario.vue'
 import Funcionarios from '../components/Funcionarios.vue'
 import UpdateFuncionario from '../components/UpdateFuncionario.vue'
+import UpdateMovel from '../components/UpdateMovel.vue'
 
 Vue.use(VueRouter)
 
@@ -82,6 +83,12 @@ const routes = [
     path: '/funcionarios/atualizar/:id',
     name: 'UpdateFuncionario',
     component: UpdateFuncionario,
+    props: true,
+  },
+  {
+    path: '/moveis/atualizar/:id',
+    name: 'UpdateMovel',
+    component: UpdateMovel,
     props: true,
   },
   {
