@@ -68,23 +68,28 @@
                 {{ user.complemento }}.
               </p>
               <div id="alinhamentobotao">
-              <button id="editar"
-                type="button"
-                @click="
-                  $router.push({
-                    name: 'UpdateCliente',
-                    params: { id: user.id },
-                  })
-                "
-              >
-                Editar
-                <i class="fas fa-edit"></i>
-              </button>
+                <button
+                  id="editar"
+                  type="button"
+                  @click="
+                    $router.push({
+                      name: 'UpdateCliente',
+                      params: { id: user.id },
+                    })
+                  "
+                >
+                  Editar
+                  <i class="fas fa-edit"></i>
+                </button>
 
-              <button id="excluir" type="button" @click="deleteUserById(user.id)">
-                Excluir
-                <i class="fas fa-trash-alt"></i>
-              </button>
+                <button
+                  id="excluir"
+                  type="button"
+                  @click="deleteUserById(user.id)"
+                >
+                  Excluir
+                  <i class="fas fa-trash-alt"></i>
+                </button>
               </div>
               <br /><br />
             </li>
@@ -178,20 +183,19 @@ export default {
   transition: 0.2s;
   margin-top: 3.2rem;
 }
-#editar{
+#editar {
   margin: 20px 50px 0px 50px;
 }
-#excluir{
+#excluir {
   margin: 20px 50px 0px 50px;
   background: rgb(252, 76, 76);
-
 }
 #editar:hover {
   background: var(--color-secondary-dark);
 }
 
 #excluir:hover {
-   background: rgb(250, 29, 29);
+  background: rgb(250, 29, 29);
 }
 #alinhamentobotao {
   display: flex;
@@ -222,8 +226,8 @@ button {
   margin-top: 3.2rem;
 }
 
-#lupa{
-  margin-left:10px;
+#lupa {
+  margin-left: 10px;
 }
 
 button:hover {
@@ -292,7 +296,7 @@ h3 {
   margin-left: -60px;
 }
 
- #imagemlupa{
+#imagemlupa {
   position: absolute;
   cursor: pointer;
   width: 40px;
@@ -300,7 +304,7 @@ h3 {
   margin-left: -42px;
 }
 
-#imagemfiltro{
+#imagemfiltro {
   position: absolute;
   cursor: pointer;
   width: 27px;

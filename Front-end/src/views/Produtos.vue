@@ -13,8 +13,9 @@
           <div class="header-content">
             <strong>Esses são os nossos móveis disponíveis</strong>
             <form id="search-product">
-                <button type="button" @click="fetchFurnitures"><h3>Ver todos os móveis</h3></button>
-              
+              <button type="button" @click="fetchFurnitures">
+                <h3>Ver todos os móveis</h3>
+              </button>
 
               <div class="select-block">
                 <label for="order">Ordenar</label>
@@ -28,45 +29,66 @@
 
               <div class="select-block">
                 <label for="products">Tipo de Produtos</label>
-                  <div class="input-block1">
-                    <input type="text" v-model="tipoget" required="required" placeholder="Digite o tipo de produtos"/>
-                  </div>
+                <div class="input-block1">
+                  <input
+                    type="text"
+                    v-model="tipoget"
+                    required="required"
+                    placeholder="Digite o tipo de produtos"
+                  />
+                </div>
               </div>
-              <button type="button" @click="fetchFurnitureByTipo">Filtrar</button>
+              <button type="button" @click="fetchFurnitureByTipo">
+                Filtrar
+              </button>
             </form>
           </div>
         </header>
 
         <main>
-          <article class="stock-item" v-for="furniture in furnitures" :key="furniture.id"> 
-                
-                  <footer >
-                      <img :src="'/uploads/furniture/'+furniture.id+'.png'" width="300" />
-                    <br />
-                  </footer>
-                  <br />
-                  
-                  <p >
-                    <strong>Produto: </strong>
-                    <strong>{{ furniture.nome}}</strong><br /><br />
-                    <strong>Descrição: </strong>
-                    <strong>{{ furniture.descricao}}</strong>
-                    <br /><br />
-                    <strong>Tipo de produto:</strong><strong> {{ furniture.tipo }}</strong><br /><br />
-                    <strong>Quantidade:</strong><strong> {{ furniture.quantidade }}</strong>
-                  </p>
-                  <footer>
-                  <p><strong>Preço do produto:</strong><strong>R$ {{ furniture.preco }} à vista</strong></p>
-                
-                  <button type="button">
-                    <router-link to="/login">
-                      <img id="carrinho"
-                        src="https://image.flaticon.com/icons/png/512/23/23258.png"
-                        alt="carrinho de compras"
-                      />Adicionar ao carrinho
-                    </router-link>
-                  </button>
-                </footer>
+          <article
+            class="stock-item"
+            v-for="furniture in furnitures"
+            :key="furniture.id"
+          >
+            <footer>
+              <img
+                :src="'/uploads/furniture/' + furniture.id + '.png'"
+                width="300"
+              />
+              <br />
+            </footer>
+            <br />
+
+            <p>
+              <strong>Produto: </strong>
+              <strong>{{ furniture.nome }}</strong
+              ><br /><br />
+              <strong>Descrição: </strong>
+              <strong>{{ furniture.descricao }}</strong>
+              <br /><br />
+              <strong>Tipo de produto:</strong
+              ><strong> {{ furniture.tipo }}</strong
+              ><br /><br />
+              <strong>Quantidade:</strong
+              ><strong> {{ furniture.quantidade }}</strong>
+            </p>
+            <footer>
+              <p>
+                <strong>Preço do produto:</strong
+                ><strong>R$ {{ furniture.preco }} à vista</strong>
+              </p>
+
+              <button type="button">
+                <router-link to="/login">
+                  <img
+                    id="carrinho"
+                    src="https://image.flaticon.com/icons/png/512/23/23258.png"
+                    alt="carrinho de compras"
+                  />Adicionar ao carrinho
+                </router-link>
+              </button>
+            </footer>
           </article>
         </main>
       </div>
@@ -77,80 +99,90 @@
 <script>
 export default {
   name: "Produtos",
-data() {
-        return {
-            file: null,
-            id: 0,
-            id2: 0,
-            nome: "",
-            descricao: "",
-            serie: "",
-            tipo: "",
-            preco: "",
-            quantidade: "",
-            tipoget:"",
-            quant: "",
-            furniture: {},
-            furnitures: [],
-            baseURI: "http://localhost:8080/api/furnitures",
-            baseUploadURI: "http://localhost:8080/upload",
-        };
-},
-    methods: {
+  data() {
+    return {
+      file: null,
+      id: 0,
+      id2: 0,
+      nome: "",
+      descricao: "",
+      serie: "",
+      tipo: "",
+      preco: "",
+      quantidade: "",
+      tipoget: "",
+      quant: "",
+      furniture: {},
+      furnitures: [],
+      baseURI: "http://localhost:8080/api/furnitures",
+      baseUploadURI: "http://localhost:8080/upload",
+    };
+  },
+  created: function () {
+    this.fetchFurnitures();
+  },
+  methods: {
+    handleFileUpload(id) {
+      this.file = this.$refs.file.files[0];
 
-        handleFileUpload(id) {
-        this.file = this.$refs.file.files[0];
-    
-        let form = new FormData();
-        form.append("resource", "furniture");
-        form.append("id", id);
-        form.append("file", this.file);
-    
-        this.$http
-            .post(this.baseUploadURI, form, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            })
-            .then((result) => {
-            console.log(result);
-            });
-        },
+      let form = new FormData();
+      form.append("resource", "furniture");
+      form.append("id", id);
+      form.append("file", this.file);
 
-        fetchFurnitures: function() {
-            this.$http.get(this.baseURI).then((result) => {
-                this.furnitures = result.data;
-                alert("Buscando todos os registros")
-            });
-        },
-
-        fetchFurnitureById: function() {
-            this.$http.get(this.baseURI + "/" + this.id2).then((result) => {
-                this.furniture = result.data;
-                alert("Registro por ID")
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
-
-        fetchFurnitureByTipo: function() {
-            this.$http.get(this.baseURI + "/tipo?tipo=" + this.tipoget).then((result) => {
-                this.furnitures = result.data;
-                alert("Filtragem por Tipo")
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
- 
-        fetchFurnitureByQuant: function() {
-            this.$http.get(this.baseURI + "/quant?quant=" + this.quant).then((result) => {
-                this.furnitures = result.data;
-                alert("Registros por Quantidade")
-            }).catch(function (error) {
-                console.log(error);
-            });
-        },
+      this.$http
+        .post(this.baseUploadURI, form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((result) => {
+          console.log(result);
+        });
     },
+
+    fetchFurnitures: function () {
+      this.$http.get(this.baseURI).then((result) => {
+        this.furnitures = result.data;
+      });
+    },
+
+    fetchFurnitureById: function () {
+      this.$http
+        .get(this.baseURI + "/" + this.id2)
+        .then((result) => {
+          this.furniture = result.data;
+          alert("Registro por ID");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    fetchFurnitureByTipo: function () {
+      this.$http
+        .get(this.baseURI + "/tipo?tipo=" + this.tipoget)
+        .then((result) => {
+          this.furnitures = result.data;
+          alert("Filtragem por Tipo");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+
+    fetchFurnitureByQuant: function () {
+      this.$http
+        .get(this.baseURI + "/quant?quant=" + this.quant)
+        .then((result) => {
+          this.furnitures = result.data;
+          alert("Registros por Quantidade");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
@@ -175,7 +207,7 @@ data() {
   --color-box-base: #ffffff;
   --color-box-footer: #fafafc;
   --color-small-info: #c1bccc;
-  font-size: 60%; 
+  font-size: 60%;
 }
 
 * {
@@ -196,7 +228,6 @@ data() {
   justify-content: center;
 }
 
-
 #furniture,
 input,
 button,
@@ -215,7 +246,7 @@ textarea,
 
 @media (min-width: 700px) {
   :root {
-    font-size: 62.5%; 
+    font-size: 62.5%;
   }
 }
 
@@ -561,8 +592,8 @@ input-block label,
     justify-content: center;
   }
 
- #carrinho {
-  margin-left: -90px;
+  #carrinho {
+    margin-left: -90px;
   }
 }
 </style>

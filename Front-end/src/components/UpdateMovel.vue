@@ -3,156 +3,120 @@
     <div id="container">
       <header class="page-header">
         <div class="top-bar-container">
-          <router-link to="/clientes">
+          <router-link to="/stock">
             <img src="/../assets/back.svg" alt="Voltar" />
           </router-link>
           <img src="/../assets/logo.png" alt="Teixeira Móveis" />
         </div>
 
         <div class="header-content">
-          <strong>Seja bem vindo!<br />Vamos atualizar seu cadastro</strong>
-          <p>O primeiro passo, é preencher esse formulário de inscrição</p>
+          <strong
+            >Seja bem vindo!<br />Vamos atualizar o cadastro do móvel</strong
+          >
+          <p>O primeiro passo, é atualizar o formulário de cadastro</p>
         </div>
       </header>
       <main>
         <form id="create-registration" onsubmit="return validaCadastro()">
           <fieldset>
-            <legend>Insira os dados do cliente</legend>
+            <legend>Atualize os dados do móvel</legend>
             <div class="input-block">
               <label for="name">Id</label>
-              <input type="text" v-model="user.id" required="required" />
+              <input type="text" v-model="furniture.id" required="required" />
             </div>
             <div class="input-block">
-              <label for="name">Nome completo</label>
+              <label for="nome">Nome do produto</label>
               <input
                 type="text"
-                nome=""
+                name="nome"
                 id="nome"
-                v-model="user.nome"
+                v-model="furniture.nome"
                 required="required"
               />
               <span class="msg-erro msg-nome"></span>
             </div>
             <div class="input-block">
-              <label for="email">E-mail</label>
+              <label for="numero">Número de série</label>
               <input
-                type="email"
-                id="email"
-                v-model="user.email"
+                type="text"
+                name="serie"
+                id="serie"
+                v-model="funiture.serie"
+                placeholder="xxxxxxxxxxxx"
                 required="required"
               />
             </div>
             <div class="input-block">
-              <label for="cpf">CPF <small>(somente números)</small></label>
+              <label id="legenda" for="descricao">Descrição</label>
               <input
-                id="cpf"
+                type="text"
+                name="descricao"
+                id="descricao"
+                v-model="furniture.descricao"
+                required="required"
+              />
+            </div>
+            <div class="input-block">
+              <label id="legenda" for="quantidade">Quantidade </label>
+              <input
+                name="quantidade"
+                id="quantidade"
                 type="number"
-                v-model="user.cpf"
-                placeholder="xxx.xxx.xxx-xx"
+                v-model="furniture.quantidade"
                 required="required"
               />
             </div>
             <div class="input-block">
-              <label for="telefone"
-                >Telefone <small>(somente números)</small></label
+              <label for="imagem"
+                >Imagem <small>(selecione um arquivo)</small></label
               >
-              <input
-                name="telefone"
-                id="telefone"
-                v-model="user.telefone"
-                placeholder="(DDD) xxxxx - xxxx"
-                type="number"
-                required="required"
-              />
             </div>
+            <br />
+            <br />
+            <input type="file" id="file" ref="file" name="image" />
           </fieldset>
-          <fieldset>
-            <legend>Nos informe seu endereço!</legend>
-            <div class="select-block">
-              <label for="estado">Estado</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="estado"
-                id="subject"
-                v-model="user.estado"
-                type="text"
-                required="required"
-              />
-            </div>
-            <div class="select-block">
-              <label for="cidade">Cidade</label>
-            </div>
-            <div class="input-block" id="input-block2">
-              <input
-                name="cidade"
-                id="subject"
-                v-model="user.cidade"
-                type="text"
-                required="required"
-              />
-            </div>
 
-            <div class="select-block">
-              <label for="complemento">Número/Complemento</label>
-            </div>
-            <div class="input-block" id="input-block2">
+          <fieldset>
+            <legend>Informe o tipo de produto</legend>
+            <div class="input-block">
+              <label id="legenda" for="subject">Tipo</label>
               <input
-                name="complemento"
-                id="complemento"
-                v-model="user.complemento"
                 type="text"
+                name="tipo"
+                id="tipo"
+                v-model="furniture.tipo"
                 required="required"
               />
             </div>
           </fieldset>
+
           <fieldset>
             <legend>Estamos quase lá</legend>
             <div class="input-block" id="input-block3">
-              <label for="senha">Digite uma senha</label>
+              <label id="legenda" for="valor"
+                >Digite o preço <small>(R$)</small></label
+              >
               <input
-                name="senha"
-                id="senha"
-                v-model="user.senha"
-                type="password"
+                type="number"
+                name="preco"
+                id="preco"
+                v-model="furniture.preco"
                 required="required"
               />
-              <label for="senha">Digite novamente</label>
-              <input
-                name="confirmeSenha"
-                v-model="confirmeSenha"
-                id="confirmeSenha"
-                type="password"
-                required="required"
-              />
-              <span class="eye2">
-                <img
-                  @click="mostrarSenha"
-                  src="/../assets/eye.png"
-                  alt="Mostrar senha"
-                />
-              </span>
-              <span class="eye">
-                <img
-                  @click="mostrarConfirmeSenha"
-                  src="/../assets/eye.png"
-                  alt="Mostrar senha"
-                />
-              </span>
             </div>
           </fieldset>
         </form>
         <footer>
           <p>
-            <img src="/../assets/warning.svg" alt="Aviso importante" />
+            <img src="assets/warning.svg" alt="Aviso importante" />
             Importante!
             <br />
             Preencha todos os dados
           </p>
           <button
             type="button"
+            @click="putFurniture"
             form="create-registration"
-            @click="editRegister"
           >
             Atualizar cadastro
           </button>
@@ -173,31 +137,32 @@
 
 <script>
 export default {
-  name: "UpdateCliente",
+  name: "UpdateMovel",
   props: ["id"],
   data() {
     return {
+      file: null,
       id: 0,
-      login: "",
-      senha: "",
       nome: "",
-      cpf: "",
-      email: "",
-      telefone: "",
-      estado: "",
-      cidade: "",
-      complemento: "",
-      confirmeSenha: "",
-      user: {},
-      users: [],
-      baseURI: "http://localhost:8080/api/users",
+      descricao: "",
+      serie: "",
+      tipo: "",
+      preco: "",
+      quantidade: "",
+      serieget: "",
+      quant: "",
+      furniture: {},
+      furnitures: [],
+      baseURI: "http://localhost:8080/api/furnitures",
+      baseUploadURI: "http://localhost:8080/upload",
     };
   },
+
   created: function () {
     this.$http
       .get(this.baseURI + "/" + this.id)
       .then((result) => {
-        this.user = result.data;
+        this.furniture = result.data;
       })
       .catch(function (error) {
         console.log(error);
@@ -206,40 +171,16 @@ export default {
   methods: {
     editRegister: function () {
       let obj = {
-        nome: this.user.nome,
-        email: this.user.email,
-        cpf: this.user.cpf,
-        telefone: this.user.telefone,
-        senha: this.user.senha,
-        estado: this.user.estado,
-        cidade: this.user.cidade,
-        complemento: this.user.complemento,
+        nome: this.furniture.nome,
+        descricao: this.furniture.descricao,
+        serie: this.furniture.serie,
+        tipo: this.furniture.tipo,
+        preco: this.furniture.preco,
+        quantidade: this.furniture.quantidade,
+        file: this.furniture.file,
       };
       this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-        this.$router.push({ name: "Clientes" });
-      });
-    },
-
-    mostrarSenha: function () {
-      let btn = document.querySelector(".eye2");
-      btn.addEventListener("click", function () {
-        let input = document.querySelector("#senha");
-        if (input.getAttribute("type") == "password") {
-          input.setAttribute("type", "text");
-        } else {
-          input.setAttribute("type", "password");
-        }
-      });
-    },
-    mostrarConfirmeSenha: function () {
-      let btn = document.querySelector(".eye");
-      btn.addEventListener("click", function () {
-        let input = document.querySelector("#confirmeSenha");
-        if (input.getAttribute("type") == "password") {
-          input.setAttribute("type", "text");
-        } else {
-          input.setAttribute("type", "password");
-        }
+        this.$router.push({ name: "Furnitures" });
       });
     },
 
@@ -247,20 +188,20 @@ export default {
       var formulario = document.forms["create-registration"];
 
       var nome = formulario.nome.value;
-      var email = formulario.email.value;
-      var cpf = formulario.cpf.value;
-      var telefone = formulario.telefone.value;
-      var senha = formulario.senha.value;
-      var confirmeSenha = formulario.confirmeSenha.value;
+      var descricao = formulario.descricao.value;
+      var serie = formulario.serie.value;
+      var tipo = formulario.tipo.value;
+      var preco = formulario.preco.value;
+      var quantidade = formulario.quantidade.value;
 
       const buttonSave = document.querySelector(
         "#container main footer button"
       );
       const modal = document.querySelector("#modal");
 
-      var erro = false; //Não tem erro
+      /*var erro = false; //Não tem erro
       if (nome.indexOf(" ") == -1) {
-        alert("Prencha o nome completo");
+        alert("Preencha o nome completo");
         erro = true; //Quando identificar um erro
       }
       if (cpf.length != 11) {
@@ -278,7 +219,7 @@ export default {
       if (confirmeSenha != senha) {
         alert("As senhas não coincidem! Digite novamente");
         erro = true;
-      }
+      }*/
 
       if (erro) {
         buttonSave.addEventListener("click", () => {
@@ -289,29 +230,7 @@ export default {
         });
         return false;
       }
-      /*if (erro == false) {
-        let obj = {
-          nome: this.nome,
-          email: this.email,
-          cpf: this.cpf,
-          telefone: this.telefone,
-          senha: this.senha,
-          estado: this.estado,
-          cidade: this.cidade,
-          complemento: this.complemento,
-        };
-        this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-          console.log(result);
-          this.user = result.data;
-
-          modal.classList.remove("hide");
-          setTimeout(() => {
-            window.location = "/";
-          }, 3000);
-        });
-      } else {
-        return true;
-      }*/
+      
     },
   },
 };

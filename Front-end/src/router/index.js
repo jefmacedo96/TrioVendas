@@ -86,7 +86,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/moveis/atualizar/:id',
+    path: '/stock/atualizar/:id',
     name: 'UpdateMovel',
     component: UpdateMovel,
     props: true,
