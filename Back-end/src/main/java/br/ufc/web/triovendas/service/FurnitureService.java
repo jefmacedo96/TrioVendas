@@ -44,11 +44,6 @@ public class FurnitureService {
 
 		return furnitureRepo.findBySerie(serie);
 	}
-	
-	public List<Furniture> getFurnitureByTipo(String tipo) {
-
-		return furnitureRepo.findByTipo(tipo);
-	}
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -62,7 +57,7 @@ public class FurnitureService {
 	}
 
 	public Furniture updateFurniture(Integer id, String nome, String descricao, String serie, String tipo, 
-			String preco, String quantidade) {
+			String preco,String quantidade) {
 		Furniture furnitureAux = furnitureRepo.findById(id).get();
 
 		if (furnitureAux != null) {
@@ -76,6 +71,11 @@ public class FurnitureService {
 		}
 
 		return furnitureAux;
+	}
+	
+	public List<Furniture> getFurnitureByTipo(String tipo) {
+
+		return furnitureRepo.findByTipo(tipo);
 	}
 
 }

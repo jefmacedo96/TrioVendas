@@ -4,8 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 @Entity(name = "employees")
 public class Employee {
@@ -13,17 +14,22 @@ public class Employee {
 	@Id
 	@GeneratedValue
 	int id;
-	
+
+	@Size(min = 1, max = 100, message = "O nome é obrigatório")
+	@NotNull(message = "O nome não pode ser nulo")
 	String nome;
-	
+
+	@Size(min = 1, max = 100, message = "O email é obrigatório")
 	String email;
-	
-	@Column(length=11)
+
+	@Column(length = 11)
+	@Size(min = 11, max = 11, message = "Seu cpf deve possuir 11 digitos")
 	String cpf;
-	
-	@Size(min = 6, message = "Sua senha deve possuir pelo menos 6 caracteres")
+
+	@Size(min = 6, max = 50, message = "sua senha deve possuir pelo menos 6 caracteres")
 	String senha;
-	
+
+	@Size(min = 1, max = 100, message = "O cargo é obrigatório")
 	String cargo;
 
 	public Employee() {

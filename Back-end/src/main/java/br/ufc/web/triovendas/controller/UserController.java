@@ -2,6 +2,8 @@ package br.ufc.web.triovendas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,7 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<User> addUser(@RequestBody User user) {
+	public ResponseEntity<User> addUser( @Valid @RequestBody User user) {
 		return new ResponseEntity<User>(userService.addUser(user.getCpf(), user.getSenha(), user.getNome(),
 				user.getEmail(), user.getTelefone(), user.getEstado(), user.getCidade(), user.getComplemento()),
 				HttpStatus.OK);

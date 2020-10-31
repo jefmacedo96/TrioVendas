@@ -2,6 +2,8 @@ package br.ufc.web.triovendas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,11 +41,6 @@ public class FurnitureController {
 	public ResponseEntity<List<Furniture>> getFurnitureBySerie(@RequestParam("serie") String serie) {
 		return new ResponseEntity<List<Furniture>>(furnitureService.getFurnitureBySerie(serie), HttpStatus.OK);
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/tipo", params = "tipo")
-	public ResponseEntity<List<Furniture>> getFurnitureByTipo(@RequestParam("tipo") String tipo) {
-		return new ResponseEntity<List<Furniture>>(furnitureService.getFurnitureByTipo(tipo), HttpStatus.OK);
-	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/quant", params = "quant")
 	public ResponseEntity<List<Furniture>> getFurnitureByQuantidade(@RequestParam("quant") Integer quant) {
@@ -51,7 +48,7 @@ public class FurnitureController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Furniture> addFurniture(@RequestBody Furniture furniture) {
+	public ResponseEntity<Furniture> addFurniture(@Valid @RequestBody Furniture furniture) {
 		return new ResponseEntity<Furniture>(
 				furnitureService.addFurniture(furniture.getNome(), furniture.getDescricao(), 
 						furniture.getSerie(), furniture.getTipo(), furniture.getPreco(), 
@@ -73,5 +70,9 @@ public class FurnitureController {
 		}
 
 		return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/tipo", params = "tipo")
+	public ResponseEntity<List<Furniture>> getFurnitureByTipo(@RequestParam("tipo") String tipo) {
+		return new ResponseEntity<List<Furniture>>(furnitureService.getFurnitureByTipo(tipo), HttpStatus.OK);
 	}
 }

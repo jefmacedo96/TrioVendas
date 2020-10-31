@@ -13,24 +13,14 @@
           <div class="header-content">
             <strong>Esses são os nossos móveis disponíveis</strong>
             <form id="search-product">
-              <button type="button" @click="fetchFurnitures">
+              <button id="botaoproduto" type="button" @click="fetchFurnitures">
                 <h3>Ver todos os móveis</h3>
               </button>
 
               <div class="select-block">
-                <label for="order">Ordenar</label>
-                <select name="order" id="order">
-                  <option value="" disabled="" hidden="">ordem</option>
-                  <option value="1">Relevância</option>
-                  <option value="1">Menor preço</option>
-                  <option value="2">Maior preço</option>
-                </select>
-              </div>
-
-              <div class="select-block">
                 <label for="products">Tipo de Produtos</label>
-                <div class="input-block1">
-                  <input
+                <div  class="input-block1">
+                  <input id="campo00"
                     type="text"
                     v-model="tipoget"
                     required="required"
@@ -38,7 +28,7 @@
                   />
                 </div>
               </div>
-              <button type="button" @click="fetchFurnitureByTipo">
+              <button id="campo001" type="button" @click="fetchFurnitureByTipo">
                 Filtrar
               </button>
             </form>
@@ -187,6 +177,15 @@ export default {
 </script>
 
 <style>
+
+ #campo00{
+  margin: 10px 0px 0px 0px ;
+  width: 220px;
+}
+
+#search-product #botaoproduto{
+  width: 210px;
+}
 :root {
   --color-background: #f0f0f7;
   --color-primary-lighter: #4865e6;

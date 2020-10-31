@@ -2,6 +2,8 @@ package br.ufc.web.triovendas.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +47,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) {
 		return new ResponseEntity<Employee>(employeeService.addEmployee(employee.getNome(), employee.getEmail(),
 				employee.getCpf(), employee.getSenha(), employee.getCargo()), HttpStatus.OK);
 	}

@@ -231,7 +231,6 @@ export default {
             console.log(result);
             this.furniture = result.data;
             this.handleFileUpload(this.furniture.id + ".png");
-            alert("Cadastro Realizado!");
 
             modal.classList.remove("hide");
             setTimeout(() => {
