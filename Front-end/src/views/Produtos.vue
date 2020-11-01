@@ -19,8 +19,9 @@
 
               <div class="select-block">
                 <label for="products">Tipo de Produtos</label>
-                <div  class="input-block1">
-                  <input id="campo00"
+                <div class="input-block1">
+                  <input
+                    id="campo00"
                     type="text"
                     v-model="tipoget"
                     required="required"
@@ -34,6 +35,16 @@
             </form>
           </div>
         </header>
+
+        <div class="bg"></div>
+        <nav class="menu" id="principal">
+          <ul>
+            <li><a href="" class="voltar">Fechar</a></li>
+            <li><router-link to="/">Tela Inicial</router-link></li>
+            <li><router-link to="/carrinho">Ver carrinho</router-link></li>
+            <li><router-link to="/">Sair</router-link></li>
+          </ul>
+        </nav>
 
         <main>
           <article
@@ -177,13 +188,12 @@ export default {
 </script>
 
 <style>
-
- #campo00{
-  margin: 10px 0px 0px 0px ;
+#campo00 {
+  margin: 10px 0px 0px 0px;
   width: 220px;
 }
 
-#search-product #botaoproduto{
+#search-product #botaoproduto {
   width: 210px;
 }
 :root {
@@ -213,6 +223,34 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.menu-icon {
+  font-size: 25px;
+  font-weight: bold;
+  padding: 5px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  background-color: #696969;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.4s;
+  left: 300px;
+}
+
+.bg {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+}
+
+#chk:checked ~ .bg {
+  display: block;
 }
 
 #app #page-landing {

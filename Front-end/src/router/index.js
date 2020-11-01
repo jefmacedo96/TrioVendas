@@ -71,7 +71,7 @@ const routes = [
   {
     path: '/stock',
     name: 'Stock',
-    component: Stock
+    component: Stock,
   },
   {
     path: '/clientes/atualizar/:id',

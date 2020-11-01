@@ -110,7 +110,7 @@
           <button
             type="button"
             form="create-registration"
-            @click="editRegister"
+            @click="validaCadastro()"
           >
             Atualizar cadastro
           </button>
@@ -158,18 +158,6 @@ export default {
       });
   },
   methods: {
-    editRegister: function () {
-      let obj = {
-        nome: this.employee.nome,
-        email: this.employee.email,
-        cpf: this.employee.cpf,
-        senha: this.employee.senha,
-        cargo: this.employee.cargo,
-      };
-      this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-        this.$router.push({ name: "Funcionarios" });
-      });
-    },
     mostrarSenha: function () {
       let btn = document.querySelector(".eye2");
       btn.addEventListener("click", function () {
@@ -239,26 +227,25 @@ export default {
         });
         return false;
       }
-      /*if (erro == false) {
+      if (erro == false) {
         let obj = {
-          nome: this.nome,
-          email: this.email,
-          cpf: this.cpf,
-          cargo: this.cargo,
-          senha: this.senha,
+          nome: this.employee.nome,
+          email: this.employee.email,
+          cpf: this.employee.cpf,
+          cargo: this.employee.cargo,
+          senha: this.employee.senha,
         };
         this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-          console.log(result);
           this.employee = result.data;
 
           modal.classList.remove("hide");
           setTimeout(() => {
-            window.location = "/";
+            window.location = "/funcionarios";
           }, 3000);
         });
       } else {
         return true;
-      }*/
+      }
     },
   },
 };

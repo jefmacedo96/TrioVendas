@@ -207,15 +207,15 @@ export default {
         alert("Preço de produto inválido! Preencha corretamente");
         erro = true;
       }
-      if (tipo == "" || tipo.length <4) {
+      if (tipo == "" || tipo.length < 4) {
         alert("Tipo de produto inválido! Preencha corretamente");
         erro = true;
       }
 
       //if (file.indexOf() == null) {
-       // alert("Cadê a imagem?!");
-       // erro = true;
-     // }
+      // alert("Cadê a imagem?!");
+      // erro = true;
+      // }
 
       if (erro == false) {
         this.$http

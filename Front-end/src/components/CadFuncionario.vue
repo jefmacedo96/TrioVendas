@@ -218,7 +218,7 @@ export default {
 
             modal.classList.remove("hide");
             setTimeout(() => {
-              window.location = "/loginFunc";
+              window.location = "/stock";
             }, 3000);
           });
       } else {

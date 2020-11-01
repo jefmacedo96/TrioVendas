@@ -152,7 +152,7 @@
           <button
             type="button"
             form="create-registration"
-            @click="editRegister"
+            @click="validaCadastro()"
           >
             Atualizar cadastro
           </button>
@@ -204,22 +204,6 @@ export default {
       });
   },
   methods: {
-    editRegister: function () {
-      let obj = {
-        nome: this.user.nome,
-        email: this.user.email,
-        cpf: this.user.cpf,
-        telefone: this.user.telefone,
-        senha: this.user.senha,
-        estado: this.user.estado,
-        cidade: this.user.cidade,
-        complemento: this.user.complemento,
-      };
-      this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-        this.$router.push({ name: "Clientes" });
-      });
-    },
-
     mostrarSenha: function () {
       let btn = document.querySelector(".eye2");
       btn.addEventListener("click", function () {
@@ -289,29 +273,28 @@ export default {
         });
         return false;
       }
-      /*if (erro == false) {
+      if (erro == false) {
         let obj = {
-          nome: this.nome,
-          email: this.email,
-          cpf: this.cpf,
-          telefone: this.telefone,
-          senha: this.senha,
-          estado: this.estado,
-          cidade: this.cidade,
-          complemento: this.complemento,
+          nome: this.user.nome,
+          email: this.user.email,
+          cpf: this.user.cpf,
+          telefone: this.user.telefone,
+          senha: this.user.senha,
+          estado: this.user.estado,
+          cidade: this.user.cidade,
+          complemento: this.user.complemento,
         };
         this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-          console.log(result);
           this.user = result.data;
 
           modal.classList.remove("hide");
           setTimeout(() => {
-            window.location = "/";
+            window.location = "/clientes";
           }, 3000);
         });
       } else {
         return true;
-      }*/
+      }
     },
   },
 };

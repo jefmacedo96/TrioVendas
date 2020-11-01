@@ -14,25 +14,12 @@
       </div>
     </header>
 
-    <input type="checkbox" id="chk" />
-    <label for="chk" class="menu-icon">&#9776;</label>
-
-    <div class="bg"></div>
-    <nav class="menu" id="principal">
-      <ul>
-        <li><a href="" class="voltar">Fechar</a></li>
-        <li><router-link to="/">Tela Inicial</router-link></li>
-        <li><router-link to="/produtos">Catálogo</router-link></li>
-        <li><router-link to="/carrinho">Ver carrinho</router-link></li>
-      </ul>
-    </nav>
-
     <h2 align="center">
       <b> <font color="#191970"> Logue-se Aqui! </font> </b>
     </h2>
     <br />
     <div class="container" align="center">
-      <form onsubmit="return enviarDados();">
+      <form id="create-registration" onsubmit="return getUserByCpfAndSenha()">
         <table>
           <tr>
             <td id="cpf">CPF:</td>
@@ -40,7 +27,8 @@
               <input
                 id="campo1"
                 type="text"
-                name="matricula"
+                name="cpf"
+                v-model="cpf"
                 required="required"
               />
             </td>
@@ -52,20 +40,23 @@
                 id="campo2"
                 type="password"
                 name="senha"
+                v-model="senha"
                 required="required"
               />
             </td>
           </tr>
           <tr id="campo3">
             <td id="vazio"></td>
-            <td><input id="botao" type="submit" value="Login" /></td>
+            <td><input id="botao" type="button" @click="getUserByCpfAndSenha()" form="create-registration" value="Login" /></td>
           </tr>
         </table>
       </form>
       <div class="container">
         <br />
         <h6 align="center">
-          <router-link to="/loginFunc" id="soufuncionario">Sou Funcionário</router-link>
+          <router-link to="/loginFunc" id="soufuncionario"
+            >Sou Funcionário</router-link
+          >
           <img
             id="funcionario"
             src="/../assets/funcionario.png"
@@ -80,11 +71,45 @@
 <script>
 export default {
   name: "Login",
+  data() {
+    return {
+      id: 0,
+      login: "",
+      cpf: "",
+      senha: "",
+      user: {},
+      users: [],
+      baseURI: "http://localhost:8080/api/users",
+    };
+  },
+  methods: {
+    fetchUsers: function () {
+      this.$http.get(this.baseURI).then((result) => {
+        this.users = result.data;
+      });
+    },
+    getUserByCpfAndSenha: function () {
+      this.$http
+        .get(this.baseURI + "/login?cpf=" + this.cpf + "&senha=" + this.senha)
+        .then((result) => {
+          this.user = result.data;
+          if (result.data == "") {
+            alert("Dados incorretos!");
+          } else {
+            alert("Login realizado com sucesso!");
+             window.location = "/produtos";
+          }
+        })
+        .catch(function (error) {
+          alert("Não foi encontrado registro");
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 
 <style>
-
 * {
   margin: 0;
   padding: 0;
@@ -94,7 +119,7 @@ export default {
   font-size: 25px;
   font-weight: bold;
   padding: 5px;
-  width: 40px;
+  width: 100px;
   height: 40px;
   text-align: center;
   background-color: #696969;
@@ -125,7 +150,7 @@ export default {
 ul li a {
   display: block;
   font: 1.6rem Archivo;
-  
+
   border-bottom: solid 1px #000;
   color: var(--color-text-title);
   text-decoration: none;
@@ -136,7 +161,6 @@ ul li a {
 
   margin-top: -10px;
   height: 45px;
-  
 }
 
 ul li a:hover {

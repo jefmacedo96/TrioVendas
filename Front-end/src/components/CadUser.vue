@@ -266,7 +266,7 @@ export default {
 
             modal.classList.remove("hide");
             setTimeout(() => {
-              window.location = "/";
+              window.location = "/produtos";
             }, 3000);
           });
       } else {

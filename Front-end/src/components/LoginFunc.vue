@@ -41,12 +41,18 @@
     </h2>
     <br />
     <div class="container" align="center">
-      <form onsubmit="return enviarDados();">
+      <form id="create-registration" onsubmit="return getEmployeeByCpfAndSenha()">
         <table>
           <tr>
             <td id="cpf">CPF:</td>
             <td>
-              <input id="campo1" type="text" name="cpf" required="required" />
+              <input
+                id="campo1"
+                type="text"
+                name="cpf"
+                v-model="cpf"
+                required="required"
+              />
             </td>
           </tr>
           <tr>
@@ -54,20 +60,17 @@
             <td>
               <input
                 id="campo2"
-                input
                 type="password"
                 name="senha"
+                v-model="senha"
                 required="required"
               />
             </td>
           </tr>
           <tr id="campo3">
-            <td id="vazio"></td>
-            <td><br /><input id="botao" type="submit" value="Login" /></td>
+            <td><input id="botao" type="button" @click="getEmployeeByCpfAndSenha()" form="create-registration" value="Login" /></td>
           </tr>
-          
         </table>
-        
       </form>
     </div>
     
@@ -78,6 +81,41 @@
 <script>
 export default {
   name: "LoginFunc",
+  data() {
+    return {
+      id: 0,
+      login: "",
+      cpf: "",
+      senha: "",
+      employee: {},
+      employees: [],
+      baseURI: "http://localhost:8080/api/employees",
+    };
+  },
+  methods: {
+    fetchEmployees: function () {
+      this.$http.get(this.baseURI).then((result) => {
+        this.employees = result.data;
+      });
+    },
+    getEmployeeByCpfAndSenha: function () {
+      this.$http
+        .get(this.baseURI + "/loginfun?cpf=" + this.cpf + "&senha=" + this.senha)
+        .then((result) => {
+          this.employee = result.data;
+          if (result.data == "") {
+            alert("Dados incorretos!");
+          } else {
+            alert("Login realizado com sucesso!");
+             window.location = "/stock";
+          }
+        })
+        .catch(function (error) {
+          alert("Não foi encontrado registro");
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

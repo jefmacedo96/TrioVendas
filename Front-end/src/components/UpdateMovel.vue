@@ -41,7 +41,7 @@
                 type="text"
                 name="serie"
                 id="serie"
-                v-model="funiture.serie"
+                v-model="furniture.serie"
                 placeholder="xxxxxxxxxxxx"
                 required="required"
               />
@@ -115,7 +115,7 @@
           </p>
           <button
             type="button"
-            @click="putFurniture"
+            @click="validaCadastro()"
             form="create-registration"
           >
             Atualizar cadastro
@@ -149,15 +149,12 @@ export default {
       tipo: "",
       preco: "",
       quantidade: "",
-      serieget: "",
-      quant: "",
       furniture: {},
       furnitures: [],
       baseURI: "http://localhost:8080/api/furnitures",
       baseUploadURI: "http://localhost:8080/upload",
     };
   },
-
   created: function () {
     this.$http
       .get(this.baseURI + "/" + this.id)
@@ -169,21 +166,6 @@ export default {
       });
   },
   methods: {
-    editRegister: function () {
-      let obj = {
-        nome: this.furniture.nome,
-        descricao: this.furniture.descricao,
-        serie: this.furniture.serie,
-        tipo: this.furniture.tipo,
-        preco: this.furniture.preco,
-        quantidade: this.furniture.quantidade,
-        file: this.furniture.file,
-      };
-      this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
-        this.$router.push({ name: "Furnitures" });
-      });
-    },
-
     validaCadastro: function () {
       var formulario = document.forms["create-registration"];
 
@@ -199,27 +181,31 @@ export default {
       );
       const modal = document.querySelector("#modal");
 
-      /*var erro = false; //Não tem erro
-      if (nome.indexOf(" ") == -1) {
-        alert("Preencha o nome completo");
+      var erro = false; //sem erro
+      if (nome.length < 3) {
+        alert("Preencha o nome do produto");
         erro = true; //Quando identificar um erro
       }
-      if (cpf.length != 11) {
-        alert("CPF inválido! Preencha corretamente");
+      if (serie.length != 12) {
+        alert("Nº de série inválido! Preencha corretamente");
         erro = true;
       }
-      if (telefone.length != 12) {
-        alert("Telefone inválido! Preencha corretamente");
+      if (descricao.length < 20) {
+        alert("Ponha todas as informações importantes do Produto");
         erro = true;
       }
-      if (senha.length < 6) {
-        alert("Senha inválida! Sua senha deve possuir no mínimo 6 caracteres");
+      if (quantidade == "" || quantidade < 0) {
+        alert("Quantidade de produtos inválida! Preencha corretamente");
         erro = true;
       }
-      if (confirmeSenha != senha) {
-        alert("As senhas não coincidem! Digite novamente");
+      if (preco == "" || preco < 0) {
+        alert("Preço de produto inválido! Preencha corretamente");
         erro = true;
-      }*/
+      }
+      if (tipo == "" || tipo.length < 4) {
+        alert("Tipo de produto inválido! Preencha corretamente");
+        erro = true;
+      }
 
       if (erro) {
         buttonSave.addEventListener("click", () => {
@@ -230,7 +216,26 @@ export default {
         });
         return false;
       }
-      
+      if (erro == false) {
+        let obj = {
+          nome: this.furniture.nome,
+          descricao: this.furniture.descricao,
+          serie: this.furniture.serie,
+          tipo: this.furniture.tipo,
+          preco: this.furniture.preco,
+          quantidade: this.furniture.quantidade,
+        };
+        this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
+          this.furniture = result.data;
+
+          modal.classList.remove("hide");
+          setTimeout(() => {
+            window.location = "/stock";
+          }, 3000);
+        });
+      } else {
+        return true;
+      }
     },
   },
 };
