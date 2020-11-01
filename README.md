@@ -37,7 +37,3 @@ PRODUTO:
 - Quantidade
 - Preço
 
-Pedidos:
-- ID
-- Preço
-- Produtos

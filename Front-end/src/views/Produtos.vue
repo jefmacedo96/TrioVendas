@@ -165,7 +165,11 @@ export default {
         .get(this.baseURI + "/tipo?tipo=" + this.tipoget)
         .then((result) => {
           this.furnitures = result.data;
-          alert("Filtragem por Tipo");
+          if(result.data == ""){
+          alert("Não temos produtos deste tipo");
+          } else {
+             alert("Registros por tipo");
+          }
         })
         .catch(function (error) {
           console.log(error);

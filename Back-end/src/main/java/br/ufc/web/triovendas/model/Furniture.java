@@ -3,13 +3,12 @@ package br.ufc.web.triovendas.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity(name = "furnitures")
 public class Furniture {
-
+	
 	@Id
 	@GeneratedValue
 	int id;
@@ -37,11 +36,12 @@ public class Furniture {
 	@Size(min = 1, max = 50, message = "A quantidade é obrigatório")
 	@NotNull(message = "A quantidade não pode ser nulo")
 	String quantidade;
-
+	
 	public Furniture() {
 	}
-
-	public Furniture(String nome, String descricao, String serie, String tipo, String preco, String quantidade) {
+	
+	public Furniture(String nome, String descricao, String serie, String tipo, String preco,
+			String quantidade) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -62,7 +62,7 @@ public class Furniture {
 		this.preco = preco;
 		this.quantidade = quantidade;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -118,7 +118,7 @@ public class Furniture {
 	public void setQuantidade(String quantidade) {
 		this.quantidade = quantidade;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Furniture [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", serie=" + serie + ", tipo="

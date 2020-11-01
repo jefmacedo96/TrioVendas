@@ -47,24 +47,19 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<User> addUser( @Valid @RequestBody User user) {
+	public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
 		return new ResponseEntity<User>(userService.addUser(user.getCpf(), user.getSenha(), user.getNome(),
 				user.getEmail(), user.getTelefone(), user.getEstado(), user.getCidade(), user.getComplemento()),
 				HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/login")
-	public ResponseEntity<User> postLogin(@RequestBody User user) {
-		user = userService.getUserByCpfAndSenha(user.getCpf(), user.getSenha());
-		if (user != null) {
-			return new ResponseEntity<User>(user, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
-		}
+	@RequestMapping(method = RequestMethod.GET, value = "/login", params = {"cpf", "senha"})
+	public ResponseEntity<User> getUserByCpfAndSenha(@RequestParam("cpf") String cpf, @RequestParam("senha") String senha) {
+		return new ResponseEntity<User>(userService.getUserByCpfAndSenha(cpf, senha), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "{id}")
-	public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
+	public ResponseEntity<User> updateUser(@Valid @PathVariable("id") Integer id, @RequestBody User user) {
 		return new ResponseEntity<User>(userService.updateUser(id, user.getCpf(), user.getSenha(), user.getNome(),
 				user.getEmail(), user.getTelefone(), user.getEstado(), user.getCidade(), user.getComplemento()),
 				HttpStatus.OK);

@@ -45,6 +45,11 @@ public class EmployeeController {
 	public ResponseEntity<List<Employee>> getEmployeeByQuantidade(@RequestParam("quantidade") Integer quantidade) {
 		return new ResponseEntity<List<Employee>>(employeeService.getEmployeeByQuantidade(quantidade), HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/loginfun", params = {"cpf", "senha"})
+	public ResponseEntity<Employee> getEmployeeByCpfAndSenha(@RequestParam("cpf") String cpf, @RequestParam("senha") String senha) {
+		return new ResponseEntity<Employee>(employeeService.getEmployeeByCpfAndSenha(cpf, senha), HttpStatus.OK);
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Employee> addEmployee(@Valid @RequestBody Employee employee) {
@@ -53,7 +58,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Integer id, @RequestBody Employee employee) {
+	public ResponseEntity<Employee> updateEmployee(@Valid @PathVariable("id") Integer id, @RequestBody Employee employee) {
 		return new ResponseEntity<Employee>(employeeService.updateEmployee(id, employee.getNome(), employee.getEmail(),
 				employee.getCpf(), employee.getSenha(), employee.getCargo()), HttpStatus.OK);
 	}

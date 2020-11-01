@@ -51,7 +51,7 @@
                 type="text"
                 name="cpf"
                 v-model="cpf"
-                required="required"
+                required
               />
             </td>
           </tr>
@@ -63,11 +63,12 @@
                 type="password"
                 name="senha"
                 v-model="senha"
-                required="required"
+                required
               />
             </td>
           </tr>
           <tr id="campo3">
+            <td id="vazio"></td>
             <td><input id="botao" type="button" @click="getEmployeeByCpfAndSenha()" form="create-registration" value="Login" /></td>
           </tr>
         </table>

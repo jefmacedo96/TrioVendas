@@ -14,11 +14,11 @@ public class User {
 	@Id
 	@GeneratedValue
 	int id;
-
+	
 	@Column(length = 11)
 	@Size(min = 11, max = 11, message = "Seu cpf deve possuir 11 digitos")
 	String cpf;
-
+	
 	@Size(min = 6, max = 50, message = "sua senha deve possuir pelo menos 6 caracteres")
 	String senha;
 

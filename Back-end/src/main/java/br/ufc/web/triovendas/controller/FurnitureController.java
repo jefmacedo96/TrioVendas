@@ -41,6 +41,11 @@ public class FurnitureController {
 	public ResponseEntity<List<Furniture>> getFurnitureBySerie(@RequestParam("serie") String serie) {
 		return new ResponseEntity<List<Furniture>>(furnitureService.getFurnitureBySerie(serie), HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/tipo", params = "tipo")
+	public ResponseEntity<List<Furniture>> getFurnitureByTipo(@RequestParam("tipo") String tipo) {
+		return new ResponseEntity<List<Furniture>>(furnitureService.getFurnitureByTipo(tipo), HttpStatus.OK);
+	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/quant", params = "quant")
 	public ResponseEntity<List<Furniture>> getFurnitureByQuantidade(@RequestParam("quant") Integer quant) {
@@ -57,7 +62,7 @@ public class FurnitureController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value = "{id}")
-	public ResponseEntity<Furniture> updateFurniture(@PathVariable("id") Integer id, @RequestBody Furniture furniture) {
+	public ResponseEntity<Furniture> updateFurniture(@Valid @PathVariable("id") Integer id, @RequestBody Furniture furniture) {
 		return new ResponseEntity<Furniture>(furnitureService.updateFurniture(id, furniture.getNome(), 
 				furniture.getDescricao(), furniture.getSerie(), furniture.getTipo(), 
 				furniture.getPreco(), furniture.getQuantidade()), HttpStatus.OK);
@@ -70,9 +75,5 @@ public class FurnitureController {
 		}
 
 		return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
-	}
-	@RequestMapping(method = RequestMethod.GET, value = "/tipo", params = "tipo")
-	public ResponseEntity<List<Furniture>> getFurnitureByTipo(@RequestParam("tipo") String tipo) {
-		return new ResponseEntity<List<Furniture>>(furnitureService.getFurnitureByTipo(tipo), HttpStatus.OK);
 	}
 }

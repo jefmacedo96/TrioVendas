@@ -68,4 +68,8 @@ public class EmployeeService {
 
 		return employeeAux;
 	}
+	
+	public Employee getEmployeeByCpfAndSenha(String cpf, String senha) {
+		return employeeRepo.findFirstByCpfAndSenha(cpf, senha);
+	}
 }

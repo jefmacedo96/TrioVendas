@@ -166,6 +166,25 @@ export default {
       });
   },
   methods: {
+    handleFileUpload(id) {
+      this.file = this.$refs.file.files[0];
+
+      let form = new FormData();
+      form.append("resource", "furniture");
+      form.append("id", id);
+      form.append("file", this.file);
+
+      this.$http
+        .post(this.baseUploadURI, form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((result) => {
+          console.log(result);
+        });
+    },
+    
     validaCadastro: function () {
       var formulario = document.forms["create-registration"];
 
@@ -227,6 +246,7 @@ export default {
         };
         this.$http.put(this.baseURI + "/" + this.id, obj).then((result) => {
           this.furniture = result.data;
+          this.handleFileUpload(this.furniture.id + ".png");
 
           modal.classList.remove("hide");
           setTimeout(() => {

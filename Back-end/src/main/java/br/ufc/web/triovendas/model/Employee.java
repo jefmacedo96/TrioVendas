@@ -7,14 +7,13 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity(name = "employees")
 public class Employee {
 
 	@Id
 	@GeneratedValue
 	int id;
-
+	
 	@Size(min = 1, max = 100, message = "O nome é obrigatório")
 	@NotNull(message = "O nome não pode ser nulo")
 	String nome;
